@@ -7,15 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0751C08B284DCFEB00B37ED1 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C08A284DCFEB00B37ED1 /* MediaViewController.swift */; };
+		0751C08D28501C3400B37ED1 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C08C28501C3400B37ED1 /* CustomPicker.swift */; };
 		07EE572D284996440046E3FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE572C284996440046E3FF /* AppDelegate.swift */; };
 		07EE572F284996440046E3FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE572E284996440046E3FF /* SceneDelegate.swift */; };
 		07EE5731284996440046E3FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE5730284996440046E3FF /* ViewController.swift */; };
 		07EE5734284996440046E3FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07EE5732284996440046E3FF /* Main.storyboard */; };
 		07EE5736284996470046E3FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07EE5735284996470046E3FF /* Assets.xcassets */; };
 		07EE5739284996470046E3FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07EE5737284996470046E3FF /* LaunchScreen.storyboard */; };
+		07EE5741284999A00046E3FF /* CheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE5740284999A00046E3FF /* CheckItem.swift */; };
+		07EE57442849A4860046E3FF /* CheckItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE57422849A4860046E3FF /* CheckItemTableViewCell.swift */; };
+		07EE57452849A4860046E3FF /* CheckItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07EE57432849A4860046E3FF /* CheckItemTableViewCell.xib */; };
+		07EE57472849C1DB0046E3FF /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE57462849C1DB0046E3FF /* InputViewController.swift */; };
+		07EE576B284BB9080046E3FF /* CheckItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE576A284BB9080046E3FF /* CheckItemList.swift */; };
+		2091B08700656604638E35C3 /* Pods_CheckApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45BD9DB532285BF155382DB /* Pods_CheckApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0751C08A284DCFEB00B37ED1 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
+		0751C08C28501C3400B37ED1 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		07EE5729284996440046E3FF /* CheckApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07EE572C284996440046E3FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07EE572E284996440046E3FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +34,14 @@
 		07EE5735284996470046E3FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07EE5738284996470046E3FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07EE573A284996470046E3FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07EE5740284999A00046E3FF /* CheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckItem.swift; sourceTree = "<group>"; };
+		07EE57422849A4860046E3FF /* CheckItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckItemTableViewCell.swift; sourceTree = "<group>"; };
+		07EE57432849A4860046E3FF /* CheckItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckItemTableViewCell.xib; sourceTree = "<group>"; };
+		07EE57462849C1DB0046E3FF /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
+		07EE576A284BB9080046E3FF /* CheckItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckItemList.swift; sourceTree = "<group>"; };
+		5701923B97024C9EEA95BA93 /* Pods-CheckApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckApp.release.xcconfig"; path = "Target Support Files/Pods-CheckApp/Pods-CheckApp.release.xcconfig"; sourceTree = "<group>"; };
+		8A0A68B8084F13DBB5371D13 /* Pods-CheckApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckApp.debug.xcconfig"; path = "Target Support Files/Pods-CheckApp/Pods-CheckApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D45BD9DB532285BF155382DB /* Pods_CheckApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2091B08700656604638E35C3 /* Pods_CheckApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +61,8 @@
 			children = (
 				07EE572B284996440046E3FF /* CheckApp */,
 				07EE572A284996440046E3FF /* Products */,
+				A71A2D09E15B1E313853B276 /* Pods */,
+				E89369542BEA27C6789D86BD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,12 +80,36 @@
 				07EE572C284996440046E3FF /* AppDelegate.swift */,
 				07EE572E284996440046E3FF /* SceneDelegate.swift */,
 				07EE5730284996440046E3FF /* ViewController.swift */,
+				07EE57462849C1DB0046E3FF /* InputViewController.swift */,
+				07EE5740284999A00046E3FF /* CheckItem.swift */,
+				07EE576A284BB9080046E3FF /* CheckItemList.swift */,
+				07EE57422849A4860046E3FF /* CheckItemTableViewCell.swift */,
+				0751C08A284DCFEB00B37ED1 /* MediaViewController.swift */,
+				0751C08C28501C3400B37ED1 /* CustomPicker.swift */,
+				07EE57432849A4860046E3FF /* CheckItemTableViewCell.xib */,
 				07EE5732284996440046E3FF /* Main.storyboard */,
 				07EE5735284996470046E3FF /* Assets.xcassets */,
 				07EE5737284996470046E3FF /* LaunchScreen.storyboard */,
 				07EE573A284996470046E3FF /* Info.plist */,
 			);
 			path = CheckApp;
+			sourceTree = "<group>";
+		};
+		A71A2D09E15B1E313853B276 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8A0A68B8084F13DBB5371D13 /* Pods-CheckApp.debug.xcconfig */,
+				5701923B97024C9EEA95BA93 /* Pods-CheckApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E89369542BEA27C6789D86BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D45BD9DB532285BF155382DB /* Pods_CheckApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +119,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07EE573D284996470046E3FF /* Build configuration list for PBXNativeTarget "CheckApp" */;
 			buildPhases = (
+				9A53DE38E618347D45FE715D /* [CP] Check Pods Manifest.lock */,
 				07EE5725284996440046E3FF /* Sources */,
 				07EE5726284996440046E3FF /* Frameworks */,
 				07EE5727284996440046E3FF /* Resources */,
+				D2579EF2E897135208CC2E06 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,19 +175,68 @@
 				07EE5739284996470046E3FF /* LaunchScreen.storyboard in Resources */,
 				07EE5736284996470046E3FF /* Assets.xcassets in Resources */,
 				07EE5734284996440046E3FF /* Main.storyboard in Resources */,
+				07EE57452849A4860046E3FF /* CheckItemTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9A53DE38E618347D45FE715D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CheckApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2579EF2E897135208CC2E06 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CheckApp/Pods-CheckApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CheckApp/Pods-CheckApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CheckApp/Pods-CheckApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		07EE5725284996440046E3FF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07EE57442849A4860046E3FF /* CheckItemTableViewCell.swift in Sources */,
 				07EE5731284996440046E3FF /* ViewController.swift in Sources */,
 				07EE572D284996440046E3FF /* AppDelegate.swift in Sources */,
+				0751C08B284DCFEB00B37ED1 /* MediaViewController.swift in Sources */,
+				07EE57472849C1DB0046E3FF /* InputViewController.swift in Sources */,
 				07EE572F284996440046E3FF /* SceneDelegate.swift in Sources */,
+				07EE576B284BB9080046E3FF /* CheckItemList.swift in Sources */,
+				07EE5741284999A00046E3FF /* CheckItem.swift in Sources */,
+				0751C08D28501C3400B37ED1 /* CustomPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,55 +380,71 @@
 		};
 		07EE573E284996470046E3FF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A0A68B8084F13DBB5371D13 /* Pods-CheckApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Youseke Kazama (LPTFL5L6KG)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XLM7K96PXP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CheckApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "本アプリは、カメラの使用許可を求めます。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "本アプリは、音声の使用許可を求めます。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.hiroto.kouno.CheckApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Team_DEV;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		07EE573F284996470046E3FF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5701923B97024C9EEA95BA93 /* Pods-CheckApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Youseke Kazama (LPTFL5L6KG)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XLM7K96PXP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CheckApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "本アプリは、カメラの使用許可を求めます。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "本アプリは、音声の使用許可を求めます。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.hiroto.kouno.CheckApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Team_DEV;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
