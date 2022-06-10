@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var realm: Realm?
     
-    var list: List<CheckItem>!
+    var list: List<CheckItem>?
     
     var itemNumber: Int = 0
     
@@ -83,7 +83,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // セルの数を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.list.count
+        guard let list = self.list else { return 0 }
+        return list.count
     }
     
     // セルの内容を返すメソッド
@@ -92,10 +93,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // PostTavleViewCellに型キャスト
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CheckItemTableViewCell
         //let checkItem = checkItemArray[indexPath.row]
-        let checkItem = list[indexPath.row]
-        cell.titleLabel.text = checkItem.title
-        cell.mediaTypeLabel.text = checkItem.isImage ? "画像": "動画"
-        
+        if let checkItem = list?[indexPath.row] {
+            cell.titleLabel.text = checkItem.title
+            cell.mediaTypeLabel.text = checkItem.isImage ? "画像": "動画"
+        }
         return cell
     }
     
@@ -106,10 +107,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // 並び替えが行われた時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        try! self.realm?.write {
-            let sourceItem = list[sourceIndexPath.row]
-            self.list.remove(at: sourceIndexPath.row)
-            self.list.insert(sourceItem, at: destinationIndexPath.row)
+        try? self.realm?.write {
+            if let list = self.list {
+                let sourceItem = list[sourceIndexPath.row]
+                list.remove(at: sourceIndexPath.row)
+                list.insert(sourceItem, at: destinationIndexPath.row)
+            }
         }
     }
     
@@ -119,7 +122,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return .delete
     }
     
-    
     //
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
             return false
@@ -127,12 +129,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-                    try! self.realm?.write {
-                        let item = self.list[indexPath.row]
-                        self.realm?.delete(item)
-                    }
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+            try? self.realm?.write {
+                if let item = self.list?[indexPath.row] {
+                    self.realm?.delete(item)
                 }
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     //各セルを選択したときに実行されるメソッド
@@ -144,12 +147,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // 写真を撮影/選択したときに呼ばれるメソッド
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first, let list = self.list else { return }
         
-        if (self.list[itemNumber].isImage){
+        if (list[itemNumber].isImage){
             if let image = (info[.originalImage] as? UIImage)?.jpegData(compressionQuality: 1.0) {
                 do {
-                    try image.write(to: documentsDirectoryUrl.appendingPathComponent(self.list[itemNumber].path+".jpg"))
+                    try image.write(to: documentsDirectoryUrl.appendingPathComponent(list[self.itemNumber].path + ".jpg"))
                     print("保存成功！")
                 } catch {
                     print("保存失敗", error)
@@ -157,7 +160,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         } else {
             guard let fileUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL else { return }
-            let saveUrl: URL = documentsDirectoryUrl.appendingPathComponent(self.list[itemNumber].path+".MOV")
+            let saveUrl: URL = documentsDirectoryUrl.appendingPathComponent(list[self.itemNumber].path+".MOV")
             
             do {
                 if FileManager.default.fileExists(atPath: saveUrl.path) {
@@ -186,14 +189,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.itemNumber += 1
         picker.dismiss(animated: true, completion: nil)
-        
-        if itemNumber == self.list.count {
-            if let checkViewController = self.storyboard?.instantiateViewController(withIdentifier: "Check") {
-                self.present(checkViewController, animated: true, completion: nil)
-                
+
+            
+            
+        if itemNumber == list.count, let checkViewController = self.storyboard?.instantiateViewController(withIdentifier: "CheckNavigation"),
+           let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover"){
+            
+            let date: Date = Date()
+            let formatter: DateFormatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd"
+            let dateString: String = formatter.string(from: date)
+            self.userDefaults.set(dateString, forKey: "date")
+            self.userDefaults.synchronize()
+            
+            self.present(checkViewController, animated: true) {
+                checkViewController.present(popoverViewController, animated: true, completion: nil)
             }
             return
         }
+
+        
 
         self.generateCamera()
     }
@@ -208,7 +223,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let inputViewController:InputViewController = segue.destination as? InputViewController else { return }
         // セルを選択した場合
-        if segue.identifier == "cellSegue" {
+        if segue.identifier == "cellSegue", let list = self.list {
             print("ccc")
             let indexPath = self.tableView.indexPathForSelectedRow
             inputViewController.checkItem = list[indexPath!.row]
@@ -217,10 +232,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("bbb")
             let checkItem = CheckItem()
             inputViewController.isAdd = true
-            if let allItems = realm?.objects(CheckItem.self) {
-                if allItems.count != 0 {
-                    checkItem.id = allItems.max(ofProperty: "id")! + 1
-                }
+            if let allItems = self.realm?.objects(CheckItem.self), allItems.count != 0 {
+                checkItem.id = allItems.max(ofProperty: "id")! + 1
             }
             inputViewController.checkItem = checkItem
         }
@@ -248,8 +261,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         print("999")
         // リストをrealmに書き込み
-        try! realm?.write {
-            realm?.add(checkItemList, update: .modified)
+        try? self.realm?.write {
+            self.realm?.add(checkItemList, update: .modified)
         }
     }
     
@@ -266,10 +279,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             // 画像の取得先：カメラ
             pickerController.sourceType = .camera
             // メディアタイプの選択
-            pickerController.mediaTypes = self.list[itemNumber].isImage ? ["public.image"] : ["public.movie"]
+            if let list = self.list {
+                pickerController.mediaTypes = list[itemNumber].isImage ? ["public.image"] : ["public.movie"]
+                self.label.text = "\(list[itemNumber].title)を撮影してください"
+            }
             // ラベルの設定
             self.label.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: 30)
-            self.label.text = "\(self.list[itemNumber].title)を撮影してください"
             self.label.textColor = .white
             self.label.center.x = self.view.center.x
             self.label.textAlignment = NSTextAlignment.center
@@ -284,5 +299,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
+    
+    
 }
 

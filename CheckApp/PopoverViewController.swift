@@ -23,5 +23,10 @@ class PopoverViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // MARK: - IBAction
+    @IBAction func handleShowMediaButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
 }

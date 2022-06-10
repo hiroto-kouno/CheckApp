@@ -20,30 +20,30 @@ class InputViewController: UIViewController {
     
     // MARK: - Private
     
-    let realm = try! Realm()
+    var realm: Realm?
     var isImage: Bool = true
     var isAdd: Bool = true
-    var checkItem: CheckItem!
-    var list: List<CheckItem>!
-    var checkItemList: CheckItemList!
+    var checkItem: CheckItem?
+    var list: List<CheckItem>?
+    //var checkItemList: CheckItemList!
     
     // MARK: - lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.list = self.realm.objects(CheckItemList.self).first?.list
-        self.titleTextField.text = self.checkItem.title
-        if self.checkItem.isImage == false {
+        self.realm = try? Realm()
+        self.list = self.realm?.objects(CheckItemList.self).first?.list
+        guard let checkItem = self.checkItem else { return }
+        self.titleTextField.text = checkItem.title
+        if checkItem.isImage == false {
             self.segmentedControl.selectedSegmentIndex = 1
             isImage = false
         }
-        self.navigationItem.title = self.checkItem.title
+        self.navigationItem.title = checkItem.title
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        /*var docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(self.checkItem.path + "jpg").path
-        imageView.image = UIImage(contentsOfFile: docDir)*/
     }
     
     // MARK: - IBAction
@@ -53,15 +53,16 @@ class InputViewController: UIViewController {
     
     
     @IBAction func handleRegisterButton(_ sender: Any) {
-        try! realm.write {
-            self.checkItem.title = self.titleTextField.text!
-            self.checkItem.isImage = self.isImage
-            if isAdd {
+        guard let checkItem = self.checkItem else { return }
+        try? self.realm?.write {
+            checkItem.title = self.titleTextField.text!
+            checkItem.isImage = self.isImage
+            if isAdd, let list = self.list {
                 let uuid = UUID()
-                self.checkItem.path = uuid.uuidString
-                self.list.append(checkItem)
+                checkItem.path = uuid.uuidString
+                list.append(checkItem)
             }
-            self.realm.add(self.checkItem, update: .modified)
+            self.realm?.add(checkItem, update: .modified)
         }
         
         self.navigationController?.popViewController(animated: true)
