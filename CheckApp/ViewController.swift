@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: - Private
     
-    let realm: Realm = try! Realm()
+    var realm: Realm?
     
     var list: List<CheckItem>!
     
@@ -29,58 +29,54 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     let userDefaults:UserDefaults = UserDefaults.standard
     
-    //var checkItemArray = try! Realm().objects(CheckItem.self).sorted(byKeyPath: "checkNumber")
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Realmのインスタンス化
+        self.realm = try? Realm()
+        // 初回起動の判定
         if self.userDefaults.bool(forKey: "initialLaunch") != true {
-            print("aaa")
             self.userDefaults.set(true, forKey: "initialLaunch")
             self.userDefaults.synchronize()
             self.insertSeedData()
         }
-        
-        self.list = realm.objects(CheckItemList.self).first?.list
+        // チェックリストの作成
+        self.list = self.realm?.objects(CheckItemList.self).first?.list
         
         print(self.list)
-        
-        self.navigationItem.title = "チェックリスト"
-        
+        // デリゲート
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        // 指定したxibファイルを取得
+        // カスタムセルの登録
         let nib: UINib = UINib(nibName: "CheckItemTableViewCell", bundle: nil)
-        // テーブルビューにnib(カスタムセル)を登録
         self.tableView.register(nib, forCellReuseIdentifier: "Cell")
-        
+        // 編集モードにする
         self.tableView.isEditing = true
-        
+        // TableViewのレイアウト
         self.tableView.separatorColor = .black
-        self.tableView.layer.borderWidth = 1.0 //枠線の太さを指定
+        self.tableView.layer.borderWidth = 1.0
         self.tableView.layer.borderColor = UIColor.black.cgColor
-        
+        // NavigationBarのレイアウト
+        self.navigationItem.title = "チェックリスト"
         var editBarButtonItem = UIBarButtonItem(title: "編集", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
-        // ③バーボタンアイテムの追加
         self.navigationItem.leftBarButtonItems = [editBarButtonItem]
-        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("aaaaaa")
+        // テーブルの更新
         self.tableView.reloadData()
         print(self.list)
     }
     
     // MARK: - IBAction
     @IBAction func handleDepatureButton(_ sender: Any) {
-        itemNumber = 0
+        // 撮影番号の初期化
+        self.itemNumber = 0
         self.generateCamera()
-        
     }
     
     // MARK: - Delegate
@@ -108,42 +104,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return true
     }
     
+    // 並び替えが行われた時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        try! realm.write {
+        try! self.realm?.write {
             let sourceItem = list[sourceIndexPath.row]
-            list.remove(at: sourceIndexPath.row)
-            list.insert(sourceItem, at: destinationIndexPath.row)
+            self.list.remove(at: sourceIndexPath.row)
+            self.list.insert(sourceItem, at: destinationIndexPath.row)
         }
     }
     
+    // 編集モードを選択するメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         // (8)
-        return .none
+        return .delete
     }
     
+    
+    //
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
             return false
         }
     
-    /*func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .normal,
-                                            title: "normal") { (action, view, completionHandler) in
-                                              // 何らかのアクション（処理）を実行
-
-                                              // 処理の実行結果に関わらず completionHandler を呼ぶのがポイント
-                                              completionHandler(true)
-            }
-            let configuration = UISwipeActionsConfiguration(actions: [action])
-            return configuration
-    }*/
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-                    try! realm.write {
-                        let item = list[indexPath.row]
-                        realm.delete(item)
+                    try! self.realm?.write {
+                        let item = self.list[indexPath.row]
+                        self.realm?.delete(item)
                     }
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
                 }
     }
     
@@ -151,12 +139,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("ddd")
         performSegue(withIdentifier: "cellSegue",sender: nil)
-        /*if let inputViewController = storyboard?.instantiateViewController(withIdentifier: "Input") as? InputViewController {
-            inputViewController.checkItem = list[indexPath.row]
-            inputViewController.isAdd = false
-            inputViewController.modalPresentationStyle = .fullScreen
-            self.present(inputViewController, animated: true, completion: nil)
-        }*/
     }
     
     // 写真を撮影/選択したときに呼ばれるメソッド
@@ -167,7 +149,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (self.list[itemNumber].isImage){
             if let image = (info[.originalImage] as? UIImage)?.jpegData(compressionQuality: 1.0) {
                 do {
-                    try image.write(to: documentsDirectoryUrl.appendingPathComponent(self.list[itemNumber].path+"jpg"))
+                    try image.write(to: documentsDirectoryUrl.appendingPathComponent(self.list[itemNumber].path+".jpg"))
                     print("保存成功！")
                 } catch {
                     print("保存失敗", error)
@@ -175,11 +157,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         } else {
             guard let fileUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL else { return }
+            let saveUrl: URL = documentsDirectoryUrl.appendingPathComponent(self.list[itemNumber].path+".MOV")
+            
             do {
-                try FileManager.default.moveItem(at: fileUrl, to: documentsDirectoryUrl.appendingPathComponent(self.list[itemNumber].path+"MOV"))
+                if FileManager.default.fileExists(atPath: saveUrl.path) {
+                        // すでに fileUrl2 が存在する場合はファイルを削除する
+                        try FileManager.default.removeItem(at: saveUrl)
+                }
+                try FileManager.default.moveItem(at: fileUrl, to: saveUrl)
                 print("保存成功！")
             } catch {
-                print("保存失敗！")
+                print("保存失敗！\(error)")
             }
         }
         
@@ -194,16 +182,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         print("\(videoUrls):323232")
         
-        picker.dismiss(animated: true, completion: nil)
+        //picker.dismiss(animated: true, completion: nil)
         
         self.itemNumber += 1
 
         if itemNumber == self.list.count {
+            if let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover") {
+                // コメント画面に遷移する
+                picker.present(popoverViewController, animated: true, completion: nil)
+            }
+            
+            /*if let checkViewController = self.storyboard?.instantiateViewController(withIdentifier: "Check") {
+                // コメント画面に遷移する
+                self.present(checkViewController, animated: true, completion: nil)
+            }*/
             return
+        } else {
+            picker.dismiss(animated: true, completion: nil)
         }
-        // UIImagePickerController画面を閉じる
-        
-        //self.itemNumber += 1
+
         self.generateCamera()
     }
     
@@ -226,33 +223,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("bbb")
             let checkItem = CheckItem()
             inputViewController.isAdd = true
-            let allItems = realm.objects(CheckItem.self)
-            if allItems.count != 0 {
-                checkItem.id = allItems.max(ofProperty: "id")! + 1
+            if let allItems = realm?.objects(CheckItem.self) {
+                if allItems.count != 0 {
+                    checkItem.id = allItems.max(ofProperty: "id")! + 1
+                }
             }
-            
-            
             inputViewController.checkItem = checkItem
         }
-        
-        
     }
     
-    
-    // MARK: - Private
-    
-    @objc func editBarButtonTapped(_ sender: UIBarButtonItem) {
-            print("【編集】ボタンが押された!")
-        }
-    
+    // MARK: - Private Method
+    // デフォルトデータを登録する
     func insertSeedData() {
-            // 空のアプリユーザーを作成
+        // インスタンスを生成
         let checkItemList = CheckItemList()
-        
-        //var checkItems: [CheckItem] = []
+        // デフォルト情報
         let defaultItems: [String] = ["ガス", "電気スイッチ", "水道", "窓", "玄関"]
         let defaultIsImage: [String:Bool] = ["ガス": true, "電気スイッチ": true, "水道": true, "窓": true,"玄関": false]
-        
+        // リストにデフォルトを登録
         for (index, item) in defaultItems.enumerated() {
             let checkItem = CheckItem()
             checkItem.id = index
@@ -263,46 +251,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 checkItem.isImage = isImage
             }
             checkItemList.list.append(checkItem)
-            //checkItems.append(checkItem)
         }
-        try! realm.write {
-            //realm.add(checkItems, update: .modified)
-            realm.add(checkItemList, update: .modified)
+        print("999")
+        // リストをrealmに書き込み
+        try! realm?.write {
+            realm?.add(checkItemList, update: .modified)
         }
-        }
+    }
+    
+    @objc func editBarButtonTapped(_ sender: UIBarButtonItem) {
+        print("【編集】ボタンが押された!")
+    }
     
     func generateCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             // インスタンスを生成
-            //let pickerController = UIImagePickerController()
             let pickerController = UIImagePickerController()
-            // デリゲートを指定
+            // デリゲート
             pickerController.delegate = self
-            // 画像の取得先を指定
+            // 画像の取得先：カメラ
             pickerController.sourceType = .camera
-            
+            // メディアタイプの選択
             pickerController.mediaTypes = self.list[itemNumber].isImage ? ["public.image"] : ["public.movie"]
+            // ラベルの設定
             self.label.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: 30)
             self.label.text = "\(self.list[itemNumber].title)を撮影してください"
             self.label.textColor = .white
             self.label.center.x = self.view.center.x
             self.label.textAlignment = NSTextAlignment.center
             self.label.alpha = 1.0
-            
-            // 設定したpickerControllerに遷移する
+            // 遷移
             self.present(pickerController, animated: true) {
+                //ラベルのアニメーション設定
                 pickerController.cameraOverlayView = self.label
                 UIView.animate(withDuration: 2.0, delay: 3.0, options: [.curveEaseIn], animations: {
-                    print("oioioi")
                     self.label.alpha = 0.0
                 }, completion: nil)
-                
-                
             }
-
-            
-            
-            
         }
     }
 }

@@ -18,7 +18,7 @@ class InputViewController: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    // MARK: - member
+    // MARK: - Private
     
     let realm = try! Realm()
     var isImage: Bool = true
@@ -26,7 +26,6 @@ class InputViewController: UIViewController {
     var checkItem: CheckItem!
     var list: List<CheckItem>!
     var checkItemList: CheckItemList!
-    //= CheckItemList()
     
     // MARK: - lifecycle
     
@@ -43,8 +42,8 @@ class InputViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        var docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(self.checkItem.path + "jpg").path
-        imageView.image = UIImage(contentsOfFile: docDir)
+        /*var docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(self.checkItem.path + "jpg").path
+        imageView.image = UIImage(contentsOfFile: docDir)*/
     }
     
     // MARK: - IBAction
@@ -54,21 +53,8 @@ class InputViewController: UIViewController {
     
     
     @IBAction func handleRegisterButton(_ sender: Any) {
-        /*try! realm.write {
-            self.checkItem.title = self.titleTextField.text!
-            let allTasks = realm.objects(CheckItem.self)
-            if allTasks.count != 0 {
-                checkItem.id = allTasks.max(ofProperty: "id")! + 1
-            }
-            self.checkItem.isImage = self.isImage
-            self.realm.add(self.checkItem, update: .modified)
-        }*/
         try! realm.write {
             self.checkItem.title = self.titleTextField.text!
-            /*let allTasks = realm.objects(CheckItem.self)
-            if allTasks.count != 0 {
-                checkItem.id = allTasks.max(ofProperty: "id")! + 1
-            }*/
             self.checkItem.isImage = self.isImage
             if isAdd {
                 let uuid = UUID()

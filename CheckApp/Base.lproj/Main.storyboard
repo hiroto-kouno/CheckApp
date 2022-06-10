@@ -232,6 +232,150 @@
             </objects>
             <point key="canvasLocation" x="28.985507246376812" y="39.508928571428569"/>
         </scene>
+        <!--Popover View Controller-->
+        <scene sceneID="vOZ-GN-6AC">
+            <objects>
+                <viewController storyboardIdentifier="Popover" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PXd-Bc-Fsd" customClass="PopoverViewController" customModule="CheckApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YHm-Z4-BZw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BK3-WV-VRR">
+                                <rect key="frame" x="50" y="224" width="314" height="400"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EMW-uq-DV3">
+                                        <rect key="frame" x="20" y="86.5" width="274" height="250"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="250" id="e9I-Xu-b7J"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DB-2s-I5h">
+                                        <rect key="frame" x="40" y="346.5" width="234" height="31"/>
+                                        <color key="backgroundColor" red="0.2156862745" green="0.4823529412" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.99607843139999996" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="写真を見る">
+                                            <backgroundConfiguration key="background">
+                                                <color key="backgroundColor" red="0.2156862745" green="0.4823529412" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </backgroundConfiguration>
+                                        </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全ての撮影が完了しました。" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caC-5m-oTA">
+                                        <rect key="frame" x="0.0" y="20" width="314" height="25.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" red="0.2156862745" green="0.4823529412" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="外出をお楽しみください！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6p-ig-iCg">
+                                        <rect key="frame" x="0.0" y="50.5" width="314" height="26"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" red="0.2156862745" green="0.4823529412" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Y6p-ig-iCg" firstAttribute="top" secondItem="caC-5m-oTA" secondAttribute="bottom" constant="5" id="B5A-9h-gYY"/>
+                                    <constraint firstItem="0DB-2s-I5h" firstAttribute="leading" secondItem="BK3-WV-VRR" secondAttribute="leading" constant="40" id="GEI-iO-8gu"/>
+                                    <constraint firstItem="EMW-uq-DV3" firstAttribute="top" secondItem="Y6p-ig-iCg" secondAttribute="bottom" constant="10" id="Kt5-hP-K0C"/>
+                                    <constraint firstAttribute="trailing" secondItem="EMW-uq-DV3" secondAttribute="trailing" constant="20" id="MJf-EX-pEg"/>
+                                    <constraint firstItem="caC-5m-oTA" firstAttribute="leading" secondItem="BK3-WV-VRR" secondAttribute="leading" id="NKO-gW-p8Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y6p-ig-iCg" secondAttribute="trailing" id="Sd1-xU-uFz"/>
+                                    <constraint firstItem="EMW-uq-DV3" firstAttribute="leading" secondItem="BK3-WV-VRR" secondAttribute="leading" constant="20" id="ap9-JV-nFb"/>
+                                    <constraint firstAttribute="trailing" secondItem="caC-5m-oTA" secondAttribute="trailing" id="bnl-rN-AcW"/>
+                                    <constraint firstItem="0DB-2s-I5h" firstAttribute="top" secondItem="EMW-uq-DV3" secondAttribute="bottom" constant="10" id="eRO-4M-CyJ"/>
+                                    <constraint firstItem="Y6p-ig-iCg" firstAttribute="leading" secondItem="BK3-WV-VRR" secondAttribute="leading" id="gm6-FL-UwQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="0DB-2s-I5h" secondAttribute="trailing" constant="40" id="n6D-ec-KJn"/>
+                                    <constraint firstAttribute="height" constant="400" id="xx1-Pl-Tzr"/>
+                                    <constraint firstItem="caC-5m-oTA" firstAttribute="top" secondItem="BK3-WV-VRR" secondAttribute="top" constant="20" id="y2L-tl-XPx"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ij3-3s-P9N"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BK3-WV-VRR" firstAttribute="top" secondItem="ij3-3s-P9N" secondAttribute="top" constant="180" id="e7e-OA-HLG"/>
+                            <constraint firstItem="ij3-3s-P9N" firstAttribute="trailing" secondItem="BK3-WV-VRR" secondAttribute="trailing" constant="50" id="w4T-ce-jna"/>
+                            <constraint firstItem="BK3-WV-VRR" firstAttribute="leading" secondItem="ij3-3s-P9N" secondAttribute="leading" constant="50" id="xtO-df-SJh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="EMW-uq-DV3" id="N9G-AQ-Faa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cjc-yd-c6u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-982.60869565217399" y="708.48214285714278"/>
+        </scene>
+        <!--Check View Controller-->
+        <scene sceneID="HJf-Ak-qr1">
+            <objects>
+                <viewController storyboardIdentifier="Check" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D3f-Op-Zua" customClass="CheckViewController" customModule="CheckApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aCl-J3-oMt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VKP-Bl-Nn8">
+                                <rect key="frame" x="10" y="128" width="394" height="694"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hT3-lD-3TA">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0Dd-OW-CoZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0Dd-OW-CoZ" firstAttribute="trailing" secondItem="VKP-Bl-Nn8" secondAttribute="trailing" constant="10" id="0BW-i8-zT0"/>
+                            <constraint firstItem="0Dd-OW-CoZ" firstAttribute="bottom" secondItem="VKP-Bl-Nn8" secondAttribute="bottom" constant="40" id="KU1-t8-Oes"/>
+                            <constraint firstItem="VKP-Bl-Nn8" firstAttribute="top" secondItem="0Dd-OW-CoZ" secondAttribute="top" constant="40" id="ZPk-JT-ZLD"/>
+                            <constraint firstItem="VKP-Bl-Nn8" firstAttribute="leading" secondItem="0Dd-OW-CoZ" secondAttribute="leading" constant="10" id="sD8-bg-S9r"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pbO-hR-R5p"/>
+                    <connections>
+                        <outlet property="collectionView" destination="VKP-Bl-Nn8" id="7Z0-Tl-itB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2VP-9t-UDq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="982.60869565217399" y="709.82142857142856"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SEJ-W0-9wd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="55k-ML-cP8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gd7-sI-1B3">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.2156862745" green="0.4823529412" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="D3f-Op-Zua" kind="relationship" relationship="rootViewController" id="ImF-T5-RJ7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IUM-aw-xyf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="72.463768115942031" y="709.82142857142856"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="p24-Yh-ssl"/>
