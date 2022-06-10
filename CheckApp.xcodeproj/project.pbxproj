@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0751C08B284DCFEB00B37ED1 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C08A284DCFEB00B37ED1 /* MediaViewController.swift */; };
-		0751C08D28501C3400B37ED1 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C08C28501C3400B37ED1 /* CustomPicker.swift */; };
 		0751C090285191DB00B37ED1 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C08E285191DB00B37ED1 /* CollectionViewCell.swift */; };
 		0751C091285191DB00B37ED1 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0751C08F285191DB00B37ED1 /* CollectionViewCell.xib */; };
 		0751C0932851938A00B37ED1 /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C0922851938A00B37ED1 /* CheckViewController.swift */; };
@@ -28,8 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0751C08A284DCFEB00B37ED1 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
-		0751C08C28501C3400B37ED1 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		0751C08E285191DB00B37ED1 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		0751C08F285191DB00B37ED1 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		0751C0922851938A00B37ED1 /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
@@ -96,8 +92,6 @@
 				0751C08F285191DB00B37ED1 /* CollectionViewCell.xib */,
 				0751C0922851938A00B37ED1 /* CheckViewController.swift */,
 				0751C0942851C5A500B37ED1 /* PopoverViewController.swift */,
-				0751C08A284DCFEB00B37ED1 /* MediaViewController.swift */,
-				0751C08C28501C3400B37ED1 /* CustomPicker.swift */,
 				07EE57432849A4860046E3FF /* CheckItemTableViewCell.xib */,
 				07EE5732284996440046E3FF /* Main.storyboard */,
 				07EE5735284996470046E3FF /* Assets.xcassets */,
@@ -246,12 +240,10 @@
 				07EE5731284996440046E3FF /* ViewController.swift in Sources */,
 				07EE572D284996440046E3FF /* AppDelegate.swift in Sources */,
 				0751C0952851C5A500B37ED1 /* PopoverViewController.swift in Sources */,
-				0751C08B284DCFEB00B37ED1 /* MediaViewController.swift in Sources */,
 				07EE57472849C1DB0046E3FF /* InputViewController.swift in Sources */,
 				07EE572F284996440046E3FF /* SceneDelegate.swift in Sources */,
 				07EE576B284BB9080046E3FF /* CheckItemList.swift in Sources */,
 				07EE5741284999A00046E3FF /* CheckItem.swift in Sources */,
-				0751C08D28501C3400B37ED1 /* CustomPicker.swift in Sources */,
 				0751C0932851938A00B37ED1 /* CheckViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

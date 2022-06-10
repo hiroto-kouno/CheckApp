@@ -322,7 +322,7 @@
         <!--Check View Controller-->
         <scene sceneID="HJf-Ak-qr1">
             <objects>
-                <viewController storyboardIdentifier="Check" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D3f-Op-Zua" customClass="CheckViewController" customModule="CheckApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Check" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D3f-Op-Zua" customClass="CheckViewController" customModule="CheckApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aCl-J3-oMt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

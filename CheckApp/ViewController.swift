@@ -185,20 +185,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //picker.dismiss(animated: true, completion: nil)
         
         self.itemNumber += 1
-
+        picker.dismiss(animated: true, completion: nil)
+        
         if itemNumber == self.list.count {
-            if let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover") {
-                // コメント画面に遷移する
-                picker.present(popoverViewController, animated: true, completion: nil)
-            }
-            
-            /*if let checkViewController = self.storyboard?.instantiateViewController(withIdentifier: "Check") {
-                // コメント画面に遷移する
+            if let checkViewController = self.storyboard?.instantiateViewController(withIdentifier: "Check") {
                 self.present(checkViewController, animated: true, completion: nil)
-            }*/
+                
+            }
             return
-        } else {
-            picker.dismiss(animated: true, completion: nil)
         }
 
         self.generateCamera()
