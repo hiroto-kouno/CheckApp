@@ -12,6 +12,7 @@
 		0751C0932851938A00B37ED1 /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C0922851938A00B37ED1 /* CheckViewController.swift */; };
 		0751C0952851C5A500B37ED1 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C0942851C5A500B37ED1 /* PopoverViewController.swift */; };
 		07BCC34F2853133F006BD49A /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCC34E2853133F006BD49A /* MediaViewController.swift */; };
+		07DEBB2F2856DAFB00547DC8 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEBB2E2856DAFB00547DC8 /* MovieView.swift */; };
 		07EE572D284996440046E3FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE572C284996440046E3FF /* AppDelegate.swift */; };
 		07EE572F284996440046E3FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE572E284996440046E3FF /* SceneDelegate.swift */; };
 		07EE5731284996440046E3FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE5730284996440046E3FF /* ViewController.swift */; };
@@ -32,6 +33,7 @@
 		0751C0922851938A00B37ED1 /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
 		0751C0942851C5A500B37ED1 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		07BCC34E2853133F006BD49A /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
+		07DEBB2E2856DAFB00547DC8 /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		07EE5729284996440046E3FF /* CheckApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07EE572C284996440046E3FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07EE572E284996440046E3FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				0751C0942851C5A500B37ED1 /* PopoverViewController.swift */,
 				07EE57432849A4860046E3FF /* CheckItemTableViewCell.xib */,
 				07BCC34E2853133F006BD49A /* MediaViewController.swift */,
+				07DEBB2E2856DAFB00547DC8 /* MovieView.swift */,
 				07EE5732284996440046E3FF /* Main.storyboard */,
 				07EE5735284996470046E3FF /* Assets.xcassets */,
 				07EE5737284996470046E3FF /* LaunchScreen.storyboard */,
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0751C090285191DB00B37ED1 /* CollectionViewCell.swift in Sources */,
+				07DEBB2F2856DAFB00547DC8 /* MovieView.swift in Sources */,
 				07EE57442849A4860046E3FF /* CheckItemTableViewCell.swift in Sources */,
 				07EE5731284996440046E3FF /* ViewController.swift in Sources */,
 				07EE572D284996440046E3FF /* AppDelegate.swift in Sources */,

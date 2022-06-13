@@ -5,33 +5,32 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CheckItemTableViewCell" customModule="CheckApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="CheckItemTableViewCell" customModule="CheckApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0U-GZ-BbW">
-                        <rect key="frame" x="10" y="5" width="220" height="24"/>
+                        <rect key="frame" x="20" y="10" width="210" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="24" id="tLl-iG-Ef6"/>
+                            <constraint firstAttribute="height" constant="30" id="tLl-iG-Ef6"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yc1-NB-ohI">
-                        <rect key="frame" x="240" y="5" width="70" height="24"/>
-                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <rect key="frame" x="240" y="10" width="70" height="30"/>
+                        <color key="backgroundColor" red="0.93110931872749092" green="0.92927577280912366" blue="0.93363063975590233" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="24" id="1Xf-bI-xA4"/>
+                            <constraint firstAttribute="height" constant="30" id="1Xf-bI-xA4"/>
                             <constraint firstAttribute="width" constant="70" id="Pf4-yC-MJD"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -39,20 +38,20 @@
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="10"/>
+                                <integer key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Yc1-NB-ohI" secondAttribute="bottom" constant="5" id="6ex-Vi-rUC"/>
-                    <constraint firstItem="a0U-GZ-BbW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="7dB-56-aZt"/>
+                    <constraint firstAttribute="bottom" secondItem="Yc1-NB-ohI" secondAttribute="bottom" constant="10" id="6ex-Vi-rUC"/>
+                    <constraint firstItem="a0U-GZ-BbW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="7dB-56-aZt"/>
                     <constraint firstItem="Yc1-NB-ohI" firstAttribute="leading" secondItem="a0U-GZ-BbW" secondAttribute="trailing" constant="10" id="A2h-BH-KEt"/>
-                    <constraint firstItem="Yc1-NB-ohI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="H6X-Gw-KQW"/>
+                    <constraint firstItem="Yc1-NB-ohI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="H6X-Gw-KQW"/>
                     <constraint firstAttribute="trailing" secondItem="Yc1-NB-ohI" secondAttribute="trailing" constant="10" id="dUr-Va-dsI"/>
-                    <constraint firstAttribute="bottom" secondItem="a0U-GZ-BbW" secondAttribute="bottom" constant="5" id="fp1-Xm-x9r"/>
-                    <constraint firstItem="a0U-GZ-BbW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="giz-ji-UfL"/>
+                    <constraint firstItem="a0U-GZ-BbW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fCl-XJ-HCq"/>
+                    <constraint firstAttribute="bottom" secondItem="a0U-GZ-BbW" secondAttribute="bottom" constant="10" id="fp1-Xm-x9r"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -60,12 +59,7 @@
                 <outlet property="mediaTypeLabel" destination="Yc1-NB-ohI" id="T6X-OV-qZH"/>
                 <outlet property="titleLabel" destination="a0U-GZ-BbW" id="Tle-hX-sAt"/>
             </connections>
-            <point key="canvasLocation" x="132" y="50"/>
+            <point key="canvasLocation" x="131.8840579710145" y="44.196428571428569"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>

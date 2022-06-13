@@ -32,24 +32,27 @@ class CheckViewController: UIViewController {
         // カスタムセルの登録
         let nib: UINib = UINib(nibName: "CollectionViewCell", bundle: nil)
         self.collectionView.register(nib, forCellWithReuseIdentifier: "CustomCell")
-        
+        // コレクションビューのセルサイズ指定
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: self.collectionView.frame.width, height: 100)
         self.collectionView.collectionViewLayout = layout
-        
+        // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = self.userDefaults.string(forKey: "date")
-        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // コレクションビューを更新
         self.collectionView.reloadData()
     }
     
     // MARK: - IBAction
+    // 帰宅ボタンを押したときに呼ばれるメソッド
     @IBAction func handleGoHomeButton(_ sender: Any) {
-        guard let list = self.list else { return }
-        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        // チェックリスト,ドキュメントディレクトリを取得
+        guard let list = self.list, let documentsDirectoryUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        // 保存先のパスを削除
         for checkItem in list {
             let mediaType: String = checkItem.isImage ? ".jpg" : ".MOV"
             let path: String = documentsDirectoryUrl.appendingPathComponent(checkItem.path + mediaType).path
@@ -59,7 +62,10 @@ class CheckViewController: UIViewController {
                 print(error)
             }
         }
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        // チェックリスト画面に戻る
+        if let listNavigation = self.storyboard?.instantiateViewController(withIdentifier: "ListNavigation") {
+            self.present(listNavigation, animated: true)
+        }
         
         var videoUrls = [URL]()
 
@@ -69,73 +75,73 @@ class CheckViewController: UIViewController {
         } catch {
             print("フォルダが空です。")
         }
+        // 起動時の画面をチェックリスト画面に切り替え
+        self.userDefaults.set(false, forKey: "isGoOut")
+        self.userDefaults.synchronize()
         
         print("\(videoUrls):323232")
     }
+    
     // MARK: - prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let mediaViewController: MediaViewController = segue.destination as? MediaViewController,
-        let list = self.list else { return }
-        if let indexPath = self.collectionView.indexPathsForSelectedItems?.first?.row {
-            let path = list[indexPath].path
-            mediaViewController.path = path
+        // indexpathを遷移先に渡す
+        if let mediaViewController = segue.destination as? MediaViewController,
+            let indexPath = self.collectionView.indexPathsForSelectedItems?.first?.row {
+            mediaViewController.itemNumber = indexPath
         }
     }
 }
     
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension CheckViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
+    // セルの数を返すメソッド
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // チェックリストの項目数を返す
         guard let list = self.list else { return 0 }
         return list.count
     }
-
+    // セルの内容を返すメソッド
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CollectionViewCell
+        let cell: CollectionViewCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CollectionViewCell
+        // ???
         guard let list = self.list else {
+            print("")
             return cell
-            
         }
         // チェック項目の取得
         let checkItem: CheckItem = list[indexPath.row]
         // タイトルの表示
         cell.titleLabel.text = checkItem.title
-        
-        if let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            if checkItem.isImage {
-                // 画像path取得
-                let imagePath: String = docDir.appendingPathComponent(checkItem.path + ".jpg").path
-                // 画像表示
-                print(imagePath)
-                cell.thumbnail.image = UIImage(contentsOfFile: imagePath)
-            } else {
-                // 動画URL取得
-                let videoUrl: URL = docDir.appendingPathComponent(checkItem.path + ".MOV")
-                print(videoUrl)
-                // 動画を取得
-                let video: AVURLAsset = AVURLAsset(url: videoUrl)
-                print(video)
-                // サムネイルを生成
-                let imageGenerator: AVAssetImageGenerator = AVAssetImageGenerator(asset: video)
-                /*let capturingTime: CMTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(video.duration) * 0.5, preferredTimescale: 1)*/
-                do {
-                    let thumbnail: CGImage = try imageGenerator.copyCGImage(at: .zero, actualTime: nil)
-                    cell.thumbnail.image = UIImage(cgImage: thumbnail)
-                } catch {
-                    print(error)
-                }
-                // サムネイル表示
-                
+        // 保存先のURLを取得
+        let mediaType: String = checkItem.isImage ? ".jpg" : ".MOV"
+        guard let mediaUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(checkItem.path + mediaType) else { return cell }
+        // サムネイル画像を表示
+        if checkItem.isImage {
+            print(mediaUrl.path)
+            cell.thumbnail.image = UIImage(contentsOfFile: mediaUrl.path)
+        } else {
+            // 動画を取得
+            let video: AVURLAsset = AVURLAsset(url: mediaUrl)
+            print(video)
+            // サムネイルジェネレーター
+            let imageGenerator: AVAssetImageGenerator = AVAssetImageGenerator(asset: video)
+            // サムネイルを縦向きにする
+            imageGenerator.appliesPreferredTrackTransform = true
+            /*let capturingTime: CMTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(video.duration) * 0.5, preferredTimescale: 1)*/
+            // サムネイルを生成・表示
+            do {
+                let thumbnail: CGImage = try imageGenerator.copyCGImage(at: .zero, actualTime: nil)
+                cell.thumbnail.image = UIImage(cgImage: thumbnail)
+            } catch {
+                print(error)
             }
         }
-        
         return cell
     }
-    
+    // セルがタップされたときに呼ばれるメソッド
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        // SubViewController へ遷移するために Segue を呼び出す
+        // 遷移処理
         performSegue(withIdentifier: "MediaSegue",sender: nil)
     }
 }

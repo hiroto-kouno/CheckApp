@@ -8,10 +8,13 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
     
     // MARK: - Private
     
@@ -29,6 +32,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     let userDefaults:UserDefaults = UserDefaults.standard
     
+    var deleteButtons: [UIButton] = []
+    
+    var isDelete: Bool = false
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -36,11 +43,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Realmのインスタンス化
         self.realm = try? Realm()
         // 初回起動の判定
-        if self.userDefaults.bool(forKey: "initialLaunch") != true {
-            self.userDefaults.set(true, forKey: "initialLaunch")
+        if self.userDefaults.bool(forKey: "isInitialLaunch") != true {
+            self.userDefaults.set(true, forKey: "isInitialLaunch")
+            self.userDefaults.set(false, forKey: "isGoOut")
             self.userDefaults.synchronize()
             self.insertSeedData()
         }
+        print(userDefaults.bool(forKey: "isGoOut"))
         // チェックリストの作成
         self.list = self.realm?.objects(CheckItemList.self).first?.list
         
@@ -53,13 +62,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.register(nib, forCellReuseIdentifier: "Cell")
         // 編集モードにする
         self.tableView.isEditing = true
+
         // TableViewのレイアウト
         self.tableView.separatorColor = .black
         self.tableView.layer.borderWidth = 1.0
         self.tableView.layer.borderColor = UIColor.black.cgColor
+        
+        //self.tableView.rowHeight = 34
+        print(self.tableView.contentSize.height)
+        
+        //self.scrollView.contentSize.height = 2000
+        //self.scrollView.flashScrollIndicators()
+        
         // NavigationBarのレイアウト
         self.navigationItem.title = "チェックリスト"
-        var editBarButtonItem = UIBarButtonItem(title: "編集", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
+        var editBarButtonItem = UIBarButtonItem(title: "削除", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
         self.navigationItem.leftBarButtonItems = [editBarButtonItem]
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
@@ -67,8 +84,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("aaaaaa")
+        for button in deleteButtons {
+            button.isHidden = true
+        }
         // テーブルの更新
+        self.tableView.rowHeight = 50
+        self.deleteButtons = []
         self.tableView.reloadData()
+        //self.tableViewHeight.constant = CGFloat(self.tableView.contentSize.height)
+        self.tableViewHeight.constant = CGFloat(self.tableView.rowHeight * CGFloat(self.list!.count))
+        print(self.tableViewHeight.constant)
         print(self.list)
     }
     
@@ -77,146 +102,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // 撮影番号の初期化
         self.itemNumber = 0
         self.generateCamera()
-    }
-    
-    // MARK: - Delegate
-    
-    // セルの数を返すメソッド
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let list = self.list else { return 0 }
-        return list.count
-    }
-    
-    // セルの内容を返すメソッド
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 再利用可能なセルがあればそのセル、なければ新しく作ったものを取得
-        // PostTavleViewCellに型キャスト
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CheckItemTableViewCell
-        //let checkItem = checkItemArray[indexPath.row]
-        if let checkItem = list?[indexPath.row] {
-            cell.titleLabel.text = checkItem.title
-            cell.mediaTypeLabel.text = checkItem.isImage ? "画像": "動画"
-        }
-        return cell
-    }
-    
-    // セルの並べ替えが可能かを返すメソッド
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    // 並び替えが行われた時に呼ばれるメソッド
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        try? self.realm?.write {
-            if let list = self.list {
-                let sourceItem = list[sourceIndexPath.row]
-                list.remove(at: sourceIndexPath.row)
-                list.insert(sourceItem, at: destinationIndexPath.row)
-            }
-        }
-    }
-    
-    // 編集モードを選択するメソッド
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        // (8)
-        return .delete
-    }
-    
-    //
-    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-            return false
-        }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            try? self.realm?.write {
-                if let item = self.list?[indexPath.row] {
-                    self.realm?.delete(item)
-                }
-            }
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
-    //各セルを選択したときに実行されるメソッド
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("ddd")
-        performSegue(withIdentifier: "cellSegue",sender: nil)
-    }
-    
-    // 写真を撮影/選択したときに呼ばれるメソッド
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first, let list = self.list else { return }
-        
-        if (list[itemNumber].isImage){
-            if let image = (info[.originalImage] as? UIImage)?.jpegData(compressionQuality: 1.0) {
-                do {
-                    try image.write(to: documentsDirectoryUrl.appendingPathComponent(list[self.itemNumber].path + ".jpg"))
-                    print("保存成功！")
-                } catch {
-                    print("保存失敗", error)
-                }
-            }
-        } else {
-            guard let fileUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL else { return }
-            let saveUrl: URL = documentsDirectoryUrl.appendingPathComponent(list[self.itemNumber].path+".MOV")
-            
-            do {
-                if FileManager.default.fileExists(atPath: saveUrl.path) {
-                        // すでに fileUrl2 が存在する場合はファイルを削除する
-                        try FileManager.default.removeItem(at: saveUrl)
-                }
-                try FileManager.default.moveItem(at: fileUrl, to: saveUrl)
-                print("保存成功！")
-            } catch {
-                print("保存失敗！\(error)")
-            }
-        }
-        
-        var videoUrls = [URL]()
-
-        do {
-            // Documentから動画ファイルのURLを取得
-            videoUrls = try FileManager.default.contentsOfDirectory(at: documentsDirectoryUrl, includingPropertiesForKeys: nil)
-        } catch {
-            print("フォルダが空です。")
-        }
-        
-        print("\(videoUrls):323232")
-        
-        //picker.dismiss(animated: true, completion: nil)
-        
-        self.itemNumber += 1
-        picker.dismiss(animated: true, completion: nil)
-
-            
-            
-        if itemNumber == list.count, let checkViewController = self.storyboard?.instantiateViewController(withIdentifier: "CheckNavigation"),
-           let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover"){
-            
-            let date: Date = Date()
-            let formatter: DateFormatter = DateFormatter()
-            formatter.dateFormat = "yyyy/MM/dd"
-            let dateString: String = formatter.string(from: date)
-            self.userDefaults.set(dateString, forKey: "date")
-            self.userDefaults.synchronize()
-            
-            self.present(checkViewController, animated: true) {
-                checkViewController.present(popoverViewController, animated: true, completion: nil)
-            }
-            return
-        }
-
-        
-
-        self.generateCamera()
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // UIImagePickerControllerを閉じる
-        // ポップアップを出す
-        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Prepare
@@ -267,6 +152,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @objc func editBarButtonTapped(_ sender: UIBarButtonItem) {
+        self.isDelete.toggle()
+        self.tableView.reloadData()
         print("【編集】ボタンが押された!")
     }
     
@@ -299,7 +186,150 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
+}
+// MARK: - UITableViewDataSource, UITableViewDelegate
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    // セルの数を返すメソッド
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let list = self.list else { return 0 }
+        return list.count
+    }
     
+    // セルの内容を返すメソッド
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // 再利用可能なセルがあればそのセル、なければ新しく作ったものを取得
+        // PostTavleViewCellに型キャスト
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CheckItemTableViewCell
+        //let checkItem = checkItemArray[indexPath.row]
+        if let checkItem = list?[indexPath.row] {
+            cell.titleLabel.text = "\(indexPath.row + 1). \(checkItem.title)"
+            cell.mediaTypeLabel.text = checkItem.isImage ? "画像": "動画"
+        }
+        return cell
+    }
     
+    // セルの並べ替えが可能かを返すメソッド
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // 並び替えが行われた時に呼ばれるメソッド
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        try? self.realm?.write {
+            if let list = self.list {
+                let sourceItem = list[sourceIndexPath.row]
+                list.remove(at: sourceIndexPath.row)
+                list.insert(sourceItem, at: destinationIndexPath.row)
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    // 編集モードを選択するメソッド
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        // (8)
+        if isDelete {
+            return .delete
+        } else {
+            return .none
+        }
+    }
+    
+    //
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+            return false
+        }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            try? self.realm?.write {
+                if let item = self.list?[indexPath.row] {
+                    self.realm?.delete(item)
+                }
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableViewHeight.constant = CGFloat(self.tableView.contentSize.height)
+        }
+    }
+    
+    //各セルを選択したときに実行されるメソッド
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("ddd")
+        performSegue(withIdentifier: "cellSegue",sender: nil)
+    }
+    
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    // 写真を撮影/選択したときに呼ばれるメソッド
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first, let list = self.list else { return }
+        
+        if (list[itemNumber].isImage){
+            if let image = (info[.originalImage] as? UIImage)?.jpegData(compressionQuality: 1.0) {
+                do {
+                    try image.write(to: documentsDirectoryUrl.appendingPathComponent(list[self.itemNumber].path + ".jpg"))
+                    print("保存成功！")
+                } catch {
+                    print("保存失敗", error)
+                }
+            }
+        } else {
+            guard let fileUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL else { return }
+            let saveUrl: URL = documentsDirectoryUrl.appendingPathComponent(list[self.itemNumber].path+".MOV")
+            
+            do {
+                if FileManager.default.fileExists(atPath: saveUrl.path) {
+                    // すでに fileUrl2 が存在する場合はファイルを削除する
+                    try FileManager.default.removeItem(at: saveUrl)
+                }
+                try FileManager.default.moveItem(at: fileUrl, to: saveUrl)
+                print("保存成功！")
+            } catch {
+                print("保存失敗！\(error)")
+            }
+        }
+        
+        var videoUrls = [URL]()
+        
+        do {
+            // Documentから動画ファイルのURLを取得
+            videoUrls = try FileManager.default.contentsOfDirectory(at: documentsDirectoryUrl, includingPropertiesForKeys: nil)
+        } catch {
+            print("フォルダが空です。")
+        }
+        
+        print("\(videoUrls):323232")
+
+        self.itemNumber += 1
+        picker.dismiss(animated: true, completion: nil)
+        
+        if itemNumber == list.count, let checkViewController = self.storyboard?.instantiateViewController(withIdentifier: "CheckNavigation"),
+           let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover"){
+            
+            let date: Date = Date()
+            let formatter: DateFormatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd"
+            let dateString: String = formatter.string(from: date)
+            self.userDefaults.set(dateString, forKey: "date")
+            self.userDefaults.synchronize()
+            self.userDefaults.set(true, forKey: "isGoOut")
+            self.userDefaults.synchronize()
+            
+            self.present(checkViewController, animated: true) {
+                checkViewController.present(popoverViewController, animated: true, completion: nil)
+            }
+            return
+        }
+        self.generateCamera()
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // UIImagePickerControllerを閉じる
+        // ポップアップを出す
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
