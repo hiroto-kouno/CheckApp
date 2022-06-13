@@ -67,8 +67,7 @@ class ViewController: UIViewController {
         self.tableView.separatorColor = .black
         self.tableView.layer.borderWidth = 1.0
         self.tableView.layer.borderColor = UIColor.black.cgColor
-        
-        //self.tableView.rowHeight = 34
+
         print(self.tableView.contentSize.height)
         
         //self.scrollView.contentSize.height = 2000
