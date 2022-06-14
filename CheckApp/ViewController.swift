@@ -250,6 +250,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             guard let list = self.list else { return }
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             self.tableViewHeight.constant = (self.tableView.rowHeight * CGFloat(list.count))
+            self.tableView.reloadData()
         }
     }
     

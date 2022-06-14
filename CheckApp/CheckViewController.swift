@@ -35,6 +35,7 @@ class CheckViewController: UIViewController {
         // コレクションビューのセルサイズ指定
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: self.collectionView.frame.width, height: 100)
+        layout.minimumLineSpacing = 15
         self.collectionView.collectionViewLayout = layout
         // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = self.userDefaults.string(forKey: "date")
@@ -45,6 +46,8 @@ class CheckViewController: UIViewController {
         super.viewWillAppear(animated)
         // コレクションビューを更新
         self.collectionView.reloadData()
+        guard let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover") else { return }
+        self.present(popoverViewController, animated: true, completion: nil)
     }
     
     // MARK: - IBAction
@@ -138,7 +141,11 @@ extension CheckViewController: UICollectionViewDataSource, UICollectionViewDeleg
         }
         return cell
     }
-    // セルがタップされたときに呼ばれるメソッド
+    /// セルがタップされたときに呼ばれるメソッド
+    ///
+    /// - Parameters:
+    ///   - collectionView: UICollectionView
+    ///   - indexPath: IndexPath
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         // 遷移処理

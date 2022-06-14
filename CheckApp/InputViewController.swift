@@ -50,6 +50,7 @@ class InputViewController: UIViewController {
      }
     // 保存ボタンを押したときに呼ばれるメソッド
     @IBAction func handleRegisterButton(_ sender: Any) {
+        print("呼ばれたよ")
         // ボタン押下時のデータをrealmに保存
         guard let checkItem = self.checkItem else { return }
         try? self.realm?.write {
