@@ -22,7 +22,7 @@ class PopoverViewController: UIViewController {
     }
     
     // MARK: - IBAction
-    // ボタンを押してポップアップを閉じる
+    // ボタンを押したときに呼ばれるメソッド
     @IBAction func handleShowMediaButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

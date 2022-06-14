@@ -24,11 +24,10 @@ class MediaViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Realmのインスタンス化
+        // Realmのインスタンスを生成
         self.realm = try? Realm()
         // リストの作成
         self.list = self.realm?.objects(CheckItemList.self).first?.list
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +45,6 @@ class MediaViewController: UIViewController {
         } else {
             self.playMovie(movieUrl: mediaUrl)
         }
-        
         // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = checkItem.title
     }

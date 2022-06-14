@@ -7,19 +7,14 @@
 import RealmSwift
 
 class CheckItem: Object {
-    
     // プライマリーキー
     @objc dynamic var id = 0
-    
     // タイトル
     @objc dynamic var title: String = ""
-    
     // 画像or動画のフラグ
     @objc dynamic var isImage: Bool = true
-    
-    // パス名
+    // メディア保存時のパス
     @objc dynamic var path: String = ""
-    
     // id をプライマリーキーとして設定
     override static func primaryKey() -> String? {
         return "id"

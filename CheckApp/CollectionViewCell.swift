@@ -13,6 +13,7 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var thumbnail: UIImageView!
     
+    // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
         // セルを枠線で囲む

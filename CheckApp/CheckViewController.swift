@@ -22,7 +22,7 @@ class CheckViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Realmのインスタンス化
+        // Realmのインスタンスを生成
         self.realm = try? Realm()
         // リストの作成
         self.list = self.realm?.objects(CheckItemList.self).first?.list
@@ -104,8 +104,8 @@ extension CheckViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CollectionViewCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CollectionViewCell
         // ???
-        guard let list = self.list else {
-            print("")
+        guard let list = self.list  else {
+            print("リストが存在しません。")
             return cell
         }
         // チェック項目の取得
