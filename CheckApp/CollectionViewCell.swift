@@ -18,17 +18,18 @@ class CollectionViewCell: UICollectionViewCell {
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
-        // セルを枠線で囲む
+        // セルのデザイン
         self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderColor = UIColor.gray.cgColor
         self.layer.cornerRadius = 15
         self.layer.masksToBounds = false
-        shadowView.layer.cornerRadius = 15
-        shadowView.layer.shadowColor = UIColor.black.cgColor
-        shadowView.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
-        shadowView.layer.shadowOpacity = 0.3
-        shadowView.layer.shadowRadius = 3.5
+        self.shadowView.layer.cornerRadius = 15
+        self.shadowView.layer.shadowColor = UIColor.black.cgColor
+        self.shadowView.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
+        self.shadowView.layer.shadowOpacity = 0.3
+        self.shadowView.layer.shadowRadius = 3.5
+        // サムネイルのデザイン
+        self.thumbnail.layer.cornerRadius = 7
+        self.thumbnail.clipsToBounds = true
     }
-    
-
 }

@@ -14,6 +14,7 @@ class InputViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var button: UIButton!
     
     // MARK: - Private
     var realm: Realm?
@@ -36,6 +37,14 @@ class InputViewController: UIViewController {
             self.segmentedControl.selectedSegmentIndex = 1
             isImage = false
         }
+        //
+        self.button.layer.masksToBounds = false
+        self.button.layer.shadowColor = UIColor.black.cgColor
+        self.button.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
+        self.button.layer.shadowOpacity = 0.3
+        self.button.layer.shadowRadius = 3.5
+        // segmentedControlのカスタマイズ
+        self.segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = checkItem.title
     }

@@ -13,6 +13,7 @@ class CheckViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var goHomeButton: UIButton!
     
     // MARK: - Private
     var realm: Realm?
@@ -37,6 +38,12 @@ class CheckViewController: UIViewController {
         layout.itemSize = CGSize(width: self.collectionView.frame.width, height: 100)
         layout.minimumLineSpacing = 15
         self.collectionView.collectionViewLayout = layout
+        // 帰宅ボタンのカスタマイズ
+        self.goHomeButton.layer.masksToBounds = false
+        self.goHomeButton.layer.shadowColor = UIColor.black.cgColor
+        self.goHomeButton.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
+        self.goHomeButton.layer.shadowOpacity = 0.3
+        self.goHomeButton.layer.shadowRadius = 3.5
         // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = self.userDefaults.string(forKey: "date")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -82,7 +89,7 @@ class CheckViewController: UIViewController {
         self.userDefaults.set(false, forKey: "isGoOut")
         self.userDefaults.synchronize()
         
-        print("\(videoUrls):323232")
+        print("\(videoUrls):video")
     }
     
     // MARK: - prepare

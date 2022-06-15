@@ -171,9 +171,10 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="l9L-dS-ty1">
                                 <rect key="frame" x="151.5" y="184" width="252.5" height="32"/>
                                 <segments>
-                                    <segment title=" 画像 "/>
-                                    <segment title=" 動画 "/>
+                                    <segment title="画像 "/>
+                                    <segment title="動画 "/>
                                 </segments>
+                                <color key="selectedSegmentTintColor" red="0.91764705879999997" green="0.58431372550000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="changedSegmentedControl:" destination="MOq-u3-cXW" eventType="valueChanged" id="eXG-34-5Yt"/>
                                 </connections>
@@ -199,6 +200,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="nw5-s4-MR1"/>
                     <connections>
+                        <outlet property="button" destination="bAb-IZ-47K" id="qKH-Cp-uPh"/>
                         <outlet property="segmentedControl" destination="l9L-dS-ty1" id="9kC-UE-DaI"/>
                         <outlet property="titleTextField" destination="N3n-bR-Qxp" id="vFI-89-VCe"/>
                     </connections>
@@ -304,7 +306,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="外出をお楽しみください！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6p-ig-iCg">
                                         <rect key="frame" x="8" y="305" width="314" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                         <color key="textColor" red="0.91764705879999997" green="0.58431372550000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -414,6 +416,7 @@
                     <navigationItem key="navigationItem" title="Title" id="wFh-zi-Mie"/>
                     <connections>
                         <outlet property="collectionView" destination="VKP-Bl-Nn8" id="7Z0-Tl-itB"/>
+                        <outlet property="goHomeButton" destination="x92-wU-hSq" id="NIX-X5-onO"/>
                         <segue destination="HNb-qd-F4v" kind="show" identifier="MediaSegue" id="AMI-OQ-s06"/>
                     </connections>
                 </viewController>
@@ -437,11 +440,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RQE-3u-qQs"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0Dq-bJ-Ihy" firstAttribute="trailing" secondItem="RQE-3u-qQs" secondAttribute="trailing" id="3pD-iX-t3n"/>
                             <constraint firstItem="0Dq-bJ-Ihy" firstAttribute="top" secondItem="RQE-3u-qQs" secondAttribute="top" id="4Hv-Db-LtP"/>

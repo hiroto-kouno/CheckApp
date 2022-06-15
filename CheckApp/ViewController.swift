@@ -40,6 +40,8 @@ class ViewController: UIViewController {
         self.list = self.realm?.objects(CheckItemList.self).first?.list
         
         print(self.list)
+        // 全メディアファイルの削除
+        self.deleteMedia()
         // デリゲート
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -128,6 +130,27 @@ class ViewController: UIViewController {
         try? self.realm?.write {
             self.realm?.add(checkItemList, update: .modified)
         }
+    }
+    // メディアを削除するメソッド
+    func deleteMedia() {
+        // チェックリスト,ドキュメントディレクトリを取得
+        guard let list = self.list, let documentsDirectoryUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        // 保存先のパスを削除
+        for checkItem in list {
+            let mediaType: String = checkItem.isImage ? ".jpg" : ".MOV"
+            let path: String = documentsDirectoryUrl.appendingPathComponent(checkItem.path + mediaType).path
+            do {
+                if FileManager.default.fileExists(atPath: path) {
+                    try FileManager.default.removeItem(atPath: path)
+                    print("\(path)の削除")
+                } else {
+                    print("該当データなし")
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
     }
     
     // 削除ボタンをタップしたときに呼ばれるメソッド
