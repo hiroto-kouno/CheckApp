@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var goOutButton: UIButton!
     
     // MARK: - Private
     var realm: Realm?
@@ -51,12 +52,17 @@ class ViewController: UIViewController {
         // 編集モードにする
         self.tableView.isEditing = true
         // TableViewのカスタマイズ
-        self.tableView.separatorColor = .black
+        self.tableView.separatorColor = .gray
         self.tableView.layer.borderWidth = 1.0
-        self.tableView.layer.borderColor = UIColor.black.cgColor
+        self.tableView.layer.borderColor = UIColor.gray.cgColor
 
         print(self.tableView.contentSize.height)
-        
+        // 出発ボタンのカスタマイズ
+        self.goOutButton.layer.masksToBounds = false
+        self.goOutButton.layer.shadowColor = UIColor.black.cgColor
+        self.goOutButton.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
+        self.goOutButton.layer.shadowOpacity = 0.3
+        self.goOutButton.layer.shadowRadius = 3.5
         // NavigationBarのカスタマイズ
         self.navigationItem.title = "チェックリスト"
         var editBarButtonItem = UIBarButtonItem(title: "削除", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
@@ -81,8 +87,19 @@ class ViewController: UIViewController {
     @IBAction func handleDepatureButton(_ sender: Any) {
         // 撮影番号の初期化
         self.itemNumber = 0
+        let alert = UIAlertController(title: "チェック項目の撮影を開始します。\nよろしいですか？", message: "", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "はい", style: .default) { (UIAlertAction) in
+            print("「はい」が選択されました！")
+            self.generateCamera()
+        }
+        let noAction = UIAlertAction(title: "いいえ", style: .default) { (UIAlertAction) in
+            print("「いいえ」が選択されました！")
+        }
+                alert.addAction(noAction)
+                alert.addAction(yesAction)
+        present(alert, animated: true, completion: nil)
         // 撮影処理
-        self.generateCamera()
+        //self.generateCamera()
     }
     
     // MARK: - Prepare

@@ -53,8 +53,8 @@ class CheckViewController: UIViewController {
         super.viewWillAppear(animated)
         // コレクションビューを更新
         self.collectionView.reloadData()
-        guard let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover") else { return }
-        self.present(popoverViewController, animated: true, completion: nil)
+        /*guard let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover") else { return }
+        self.present(popoverViewController, animated: true, completion: nil)*/
     }
     
     // MARK: - IBAction
@@ -62,6 +62,17 @@ class CheckViewController: UIViewController {
     @IBAction func handleGoHomeButton(_ sender: Any) {
         // チェックリスト,ドキュメントディレクトリを取得
         guard let list = self.list, let documentsDirectoryUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let alert = UIAlertController(title: "チェックリスト画面に戻ります。\nよろしいですか？", message: "保存したメディアは全て削除されます。", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "はい", style: .default, handler: { (UIAlertAction) in
+                    print("「はい」が選択されました！")
+                })
+                let noAction = UIAlertAction(title: "いいえ", style: .default, handler: { (UIAlertAction) in
+                    print("「いいえ」が選択されました！")
+                })
+                alert.addAction(noAction)
+                alert.addAction(yesAction)
+        present(alert, animated: true, completion: nil)
+        /*
         // 保存先のパスを削除
         for checkItem in list {
             let mediaType: String = checkItem.isImage ? ".jpg" : ".MOV"
@@ -89,7 +100,7 @@ class CheckViewController: UIViewController {
         self.userDefaults.set(false, forKey: "isGoOut")
         self.userDefaults.synchronize()
         
-        print("\(videoUrls):video")
+        print("\(videoUrls):video")*/
     }
     
     // MARK: - prepare

@@ -19,8 +19,8 @@ class CollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // セルのデザイン
-        self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor.gray.cgColor
+        self.layer.borderWidth = 0.5
+        self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.cornerRadius = 15
         self.layer.masksToBounds = false
         self.shadowView.layer.cornerRadius = 15

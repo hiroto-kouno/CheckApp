@@ -114,6 +114,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="goOutButton" destination="jgB-HN-VsZ" id="QrB-UF-Vap"/>
                         <outlet property="tableView" destination="f9n-dh-64a" id="dD4-o1-Bcr"/>
                         <outlet property="tableViewHeight" destination="vvd-nn-eMj" id="w6V-eM-W8Q"/>
                         <segue destination="MOq-u3-cXW" kind="show" identifier="cellSegue" id="p24-Yh-ssl"/>
@@ -181,7 +182,7 @@
                             </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DgF-cm-ACf"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.99607843139999996" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="z0s-pd-FSA" firstAttribute="leading" secondItem="DgF-cm-ACf" secondAttribute="leading" constant="20" id="6El-fy-h2h"/>
                             <constraint firstItem="DgF-cm-ACf" firstAttribute="trailing" secondItem="l9L-dS-ty1" secondAttribute="trailing" constant="10" id="6nG-Mq-oxM"/>
@@ -263,7 +264,7 @@
                                         <color key="backgroundColor" red="0.42745098040000001" green="0.75686274509999996" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EMW-uq-DV3">
-                                        <rect key="frame" x="20" y="30" width="274" height="300"/>
+                                        <rect key="frame" x="20" y="47" width="274" height="300"/>
                                         <color key="tintColor" red="0.2156862745" green="0.4823529412" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="e9I-Xu-b7J"/>
@@ -329,7 +330,7 @@
                                     <constraint firstItem="LHM-gT-dXw" firstAttribute="leading" secondItem="BK3-WV-VRR" secondAttribute="leading" constant="-70" id="hnP-Jx-r8b"/>
                                     <constraint firstAttribute="trailing" secondItem="Y6p-ig-iCg" secondAttribute="trailing" constant="-8" id="iFK-NF-erW"/>
                                     <constraint firstAttribute="trailing" secondItem="0DB-2s-I5h" secondAttribute="trailing" constant="70" id="n6D-ec-KJn"/>
-                                    <constraint firstItem="EMW-uq-DV3" firstAttribute="top" secondItem="caC-5m-oTA" secondAttribute="bottom" constant="10" id="pxM-mx-nhv"/>
+                                    <constraint firstItem="EMW-uq-DV3" firstAttribute="top" secondItem="caC-5m-oTA" secondAttribute="bottom" constant="27" id="pxM-mx-nhv"/>
                                     <constraint firstItem="0DB-2s-I5h" firstAttribute="top" secondItem="Y6p-ig-iCg" secondAttribute="bottom" constant="10" id="qQu-Lf-zhv"/>
                                     <constraint firstAttribute="height" constant="400" id="xx1-Pl-Tzr"/>
                                     <constraint firstItem="caC-5m-oTA" firstAttribute="top" secondItem="BK3-WV-VRR" secondAttribute="top" constant="20" id="y2L-tl-XPx"/>
