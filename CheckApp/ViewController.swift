@@ -52,8 +52,8 @@ class ViewController: UIViewController {
         // 編集モードにする
         self.tableView.isEditing = true
         // TableViewのカスタマイズ
-        self.tableView.separatorColor = .gray
-        self.tableView.layer.borderWidth = 1.0
+        //self.tableView.separatorColor = .gray
+        //self.tableView.layer.borderWidth = 1.0
         self.tableView.layer.borderColor = UIColor.gray.cgColor
 
         print(self.tableView.contentSize.height)
@@ -75,12 +75,13 @@ class ViewController: UIViewController {
         print("aaaaaa")
         // テーブルの更新・高さの指定
         guard let list = self.list else { return }
-        self.tableView.rowHeight = 50
+        self.tableView.rowHeight = 60
         self.tableView.reloadData()
-        self.tableViewHeight.constant = (self.tableView.rowHeight * CGFloat(list.count))
+        self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(list.count) - CGFloat(0.3)
         
         print(self.tableViewHeight.constant)
         print(self.list)
+        showDocumentDirectory()
     }
     
     // MARK: - IBAction
@@ -167,6 +168,8 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
+        // コンソール用
+        showDocumentDirectory()
         
     }
     
@@ -223,6 +226,18 @@ class ViewController: UIViewController {
             self.present(checkViewController, animated: true) {
                 checkViewController.present(popoverViewController, animated: true, completion: nil)
             }
+    }
+    
+    func showDocumentDirectory () {
+        guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        var videoUrls = [URL]()
+        do {
+            // Documentから動画ファイルのURLを取得
+            videoUrls = try FileManager.default.contentsOfDirectory(at: documentsDirectoryUrl, includingPropertiesForKeys: nil)
+        } catch {
+            print("フォルダが空です。")
+        }
+        print("\(videoUrls):VIDEOURL")
     }
 }
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -333,14 +348,8 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             }
         }
         
-        var videoUrls = [URL]()
-        do {
-            // Documentから動画ファイルのURLを取得
-            videoUrls = try FileManager.default.contentsOfDirectory(at: documentsDirectoryUrl, includingPropertiesForKeys: nil)
-        } catch {
-            print("フォルダが空です。")
-        }
-        print("\(videoUrls):VIDEOURL")
+        // ファイルの確認(削除・保存処理チェック用)
+        self.showDocumentDirectory()
 
         self.itemNumber += 1
         picker.dismiss(animated: true, completion: nil)
@@ -356,7 +365,19 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // UIImagePickerControllerを閉じる
         // 画像の削除
-        self.dismiss(animated: true, completion: nil)
+        let alert = UIAlertController(title: "チェックリスト画面に戻ります。\nよろしいですか？", message: "ここまで撮影したメディアは全て削除されます。", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "はい", style: .default) { (UIAlertAction) in
+            print("「はい」が選択されました！")
+            self.dismiss(animated: true, completion: nil)
+            self.deleteMedia()
+        }
+        let noAction = UIAlertAction(title: "いいえ", style: .default) { (UIAlertAction) in
+            print("「いいえ」が選択されました！")
+        }
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
+        picker.present(alert, animated: true, completion: nil)
+        
     }
 }
 

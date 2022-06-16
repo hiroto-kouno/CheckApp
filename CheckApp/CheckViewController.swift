@@ -14,6 +14,8 @@ class CheckViewController: UIViewController {
     // MARK: - IBOutlet
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var goHomeButton: UIButton!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // MARK: - Private
     var realm: Realm?
@@ -34,10 +36,10 @@ class CheckViewController: UIViewController {
         let nib: UINib = UINib(nibName: "CollectionViewCell", bundle: nil)
         self.collectionView.register(nib, forCellWithReuseIdentifier: "CustomCell")
         // コレクションビューのセルサイズ指定
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: self.collectionView.frame.width, height: 100)
-        layout.minimumLineSpacing = 15
-        self.collectionView.collectionViewLayout = layout
+        //self.collectionView.frame.width = self.frame.width - 20
+        scrollView.contentSize = contentView.frame.size
+        scrollView.flashScrollIndicators()
+        
         // 帰宅ボタンのカスタマイズ
         self.goHomeButton.layer.masksToBounds = false
         self.goHomeButton.layer.shadowColor = UIColor.black.cgColor
@@ -57,20 +59,35 @@ class CheckViewController: UIViewController {
         self.present(popoverViewController, animated: true, completion: nil)*/
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: self.collectionView.frame.width - 10, height: 100)
+        print(layout.itemSize)
+        layout.minimumLineSpacing = 15
+        self.collectionView.collectionViewLayout = layout    }
+    
     // MARK: - IBAction
     // 帰宅ボタンを押したときに呼ばれるメソッド
     @IBAction func handleGoHomeButton(_ sender: Any) {
         // チェックリスト,ドキュメントディレクトリを取得
         guard let list = self.list, let documentsDirectoryUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let alert = UIAlertController(title: "チェックリスト画面に戻ります。\nよろしいですか？", message: "保存したメディアは全て削除されます。", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "はい", style: .default, handler: { (UIAlertAction) in
-                    print("「はい」が選択されました！")
-                })
-                let noAction = UIAlertAction(title: "いいえ", style: .default, handler: { (UIAlertAction) in
-                    print("「いいえ」が選択されました！")
-                })
-                alert.addAction(noAction)
-                alert.addAction(yesAction)
+        let alert = UIAlertController(title: "チェックリスト画面に戻ります。\nよろしいですか？", message: "撮影したメディアは全て削除されます。", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "はい", style: .default) { (UIAlertAction) in
+            print("「はい」が選択されました！")
+            if let listNavigation = self.storyboard?.instantiateViewController(withIdentifier: "ListNavigation") {
+                self.present(listNavigation, animated: true)
+            }
+            // 起動時の画面をチェックリスト画面に切り替え
+            self.userDefaults.set(false, forKey: "isGoOut")
+            self.userDefaults.synchronize()
+            
+        }
+        let noAction = UIAlertAction(title: "いいえ", style: .default) { (UIAlertAction) in
+            print("「いいえ」が選択されました！")
+        }
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
         present(alert, animated: true, completion: nil)
         /*
         // 保存先のパスを削除
