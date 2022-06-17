@@ -13,9 +13,8 @@ class CheckViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var goHomeButton: UIButton!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var goHomeButton: UIButton! 
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Private
     var realm: Realm?
@@ -37,15 +36,14 @@ class CheckViewController: UIViewController {
         self.collectionView.register(nib, forCellWithReuseIdentifier: "CustomCell")
         // コレクションビューのセルサイズ指定
         //self.collectionView.frame.width = self.frame.width - 20
-        scrollView.contentSize = contentView.frame.size
-        scrollView.flashScrollIndicators()
+        
         
         // 帰宅ボタンのカスタマイズ
-        self.goHomeButton.layer.masksToBounds = false
+        /*self.goHomeButton.layer.masksToBounds = false
         self.goHomeButton.layer.shadowColor = UIColor.black.cgColor
         self.goHomeButton.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
         self.goHomeButton.layer.shadowOpacity = 0.3
-        self.goHomeButton.layer.shadowRadius = 3.5
+        self.goHomeButton.layer.shadowRadius = 3.5*/
         // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = self.userDefaults.string(forKey: "date")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -65,7 +63,12 @@ class CheckViewController: UIViewController {
         layout.itemSize = CGSize(width: self.collectionView.frame.width - 10, height: 100)
         print(layout.itemSize)
         layout.minimumLineSpacing = 15
-        self.collectionView.collectionViewLayout = layout    }
+        self.collectionView.collectionViewLayout = layout
+        
+        guard let list = self.list else { return }
+        print(self.collectionView.contentSize.height)
+        self.collectionViewHeightConstraint.constant = self.collectionView.contentSize.height + CGFloat(10.0)
+    }
     
     // MARK: - IBAction
     // 帰宅ボタンを押したときに呼ばれるメソッド

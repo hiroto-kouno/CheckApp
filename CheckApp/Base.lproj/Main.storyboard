@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8r8-eH-6Gv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2535" y="-48"/>
+            <point key="canvasLocation" x="2499" y="708"/>
         </scene>
         <!--Title-->
         <scene sceneID="tne-QT-ifu">
@@ -51,7 +51,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </tableView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgB-HN-VsZ">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgB-HN-VsZ" customClass="Button" customModule="CheckApp" customModuleProvider="target">
                                                 <rect key="frame" x="70" y="30" width="274" height="60"/>
                                                 <color key="backgroundColor" red="0.42745098039215684" green="0.75686274509803919" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -62,12 +62,8 @@
                                                 <state key="normal" title="出発" image="camera">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
+                                                <state key="selected" image="camera"/>
+                                                <state key="highlighted" image="camera"/>
                                                 <connections>
                                                     <action selector="handleDepatureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SR8-fB-Tpy"/>
                                                 </connections>
@@ -115,7 +111,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="goOutButton" destination="jgB-HN-VsZ" id="QrB-UF-Vap"/>
+                        <outlet property="goOutButton" destination="jgB-HN-VsZ" id="q32-oy-tvY"/>
                         <outlet property="tableView" destination="f9n-dh-64a" id="dD4-o1-Bcr"/>
                         <outlet property="tableViewHeight" destination="vvd-nn-eMj" id="w6V-eM-W8Q"/>
                         <segue destination="MOq-u3-cXW" kind="show" identifier="cellSegue" id="p24-Yh-ssl"/>
@@ -153,7 +149,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAb-IZ-47K">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAb-IZ-47K" customClass="Button" customModule="CheckApp" customModuleProvider="target">
                                 <rect key="frame" x="20" y="262.5" width="374" height="50"/>
                                 <color key="backgroundColor" red="0.42745098040000001" green="0.75686274509999996" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -164,12 +160,6 @@
                                 <state key="normal" title="保存" image="save">
                                     <color key="titleColor" red="0.99607843139999996" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="handleRegisterButton:" destination="MOq-u3-cXW" eventType="touchUpInside" id="etq-uG-yHv"/>
                                 </connections>
@@ -272,7 +262,7 @@
                                         <color key="backgroundColor" red="0.42745098040000001" green="0.75686274509999996" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EMW-uq-DV3">
-                                        <rect key="frame" x="20" y="47" width="274" height="300"/>
+                                        <rect key="frame" x="20" y="41" width="274" height="300"/>
                                         <color key="tintColor" red="0.2156862745" green="0.4823529412" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="e9I-Xu-b7J"/>
@@ -315,7 +305,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="外出をお楽しみください！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6p-ig-iCg">
                                         <rect key="frame" x="8" y="305" width="314" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <color key="textColor" red="0.91764705879999997" green="0.58431372550000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -338,7 +328,7 @@
                                     <constraint firstItem="LHM-gT-dXw" firstAttribute="leading" secondItem="BK3-WV-VRR" secondAttribute="leading" constant="-70" id="hnP-Jx-r8b"/>
                                     <constraint firstAttribute="trailing" secondItem="Y6p-ig-iCg" secondAttribute="trailing" constant="-8" id="iFK-NF-erW"/>
                                     <constraint firstAttribute="trailing" secondItem="0DB-2s-I5h" secondAttribute="trailing" constant="70" id="n6D-ec-KJn"/>
-                                    <constraint firstItem="EMW-uq-DV3" firstAttribute="top" secondItem="caC-5m-oTA" secondAttribute="bottom" constant="27" id="pxM-mx-nhv"/>
+                                    <constraint firstItem="EMW-uq-DV3" firstAttribute="top" secondItem="caC-5m-oTA" secondAttribute="bottom" constant="21" id="pxM-mx-nhv"/>
                                     <constraint firstItem="0DB-2s-I5h" firstAttribute="top" secondItem="Y6p-ig-iCg" secondAttribute="bottom" constant="10" id="qQu-Lf-zhv"/>
                                     <constraint firstAttribute="height" constant="400" id="xx1-Pl-Tzr"/>
                                     <constraint firstItem="caC-5m-oTA" firstAttribute="top" secondItem="BK3-WV-VRR" secondAttribute="top" constant="20" id="y2L-tl-XPx"/>
@@ -377,54 +367,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VKP-Bl-Nn8">
-                                <rect key="frame" x="10" y="208" width="394" height="614"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w74-Th-eFL">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4i-nD-cJf">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="660"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x92-wU-hSq" customClass="Button" customModule="CheckApp" customModuleProvider="target">
+                                                <rect key="frame" x="70" y="30" width="274" height="60"/>
+                                                <color key="backgroundColor" red="0.42745098040000001" green="0.75686274509999996" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="ZsB-UL-KzL"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="2"/>
+                                                <state key="normal" title="帰宅" image="home"/>
+                                                <connections>
+                                                    <action selector="handleGoHomeButton:" destination="D3f-Op-Zua" eventType="touchUpInside" id="qJt-aE-Bsv"/>
+                                                </connections>
+                                            </button>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VKP-Bl-Nn8">
+                                                <rect key="frame" x="10" y="120" width="394" height="500"/>
+                                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="500" id="lDx-WW-vRB"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hT3-lD-3TA">
+                                                    <size key="itemSize" width="128" height="128"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells/>
+                                            </collectionView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="VKP-Bl-Nn8" secondAttribute="trailing" constant="10" id="Ekm-yj-RaS"/>
+                                            <constraint firstItem="VKP-Bl-Nn8" firstAttribute="leading" secondItem="P4i-nD-cJf" secondAttribute="leading" constant="10" id="Kgh-9R-luD"/>
+                                            <constraint firstAttribute="trailing" secondItem="x92-wU-hSq" secondAttribute="trailing" constant="70" id="b7d-Qg-ewm"/>
+                                            <constraint firstItem="x92-wU-hSq" firstAttribute="leading" secondItem="P4i-nD-cJf" secondAttribute="leading" constant="70" id="jss-Hy-308"/>
+                                            <constraint firstItem="VKP-Bl-Nn8" firstAttribute="top" secondItem="x92-wU-hSq" secondAttribute="bottom" constant="30" id="lnm-7x-JPM"/>
+                                            <constraint firstItem="x92-wU-hSq" firstAttribute="top" secondItem="P4i-nD-cJf" secondAttribute="top" constant="30" id="mbA-P3-A5E"/>
+                                            <constraint firstAttribute="bottom" secondItem="VKP-Bl-Nn8" secondAttribute="bottom" constant="40" id="qDn-sJ-FA5"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hT3-lD-3TA">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x92-wU-hSq">
-                                <rect key="frame" x="70" y="118" width="274" height="60"/>
-                                <color key="backgroundColor" red="0.42745098040000001" green="0.75686274509999996" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="ZsB-UL-KzL"/>
+                                    <constraint firstItem="P4i-nD-cJf" firstAttribute="top" secondItem="w74-Th-eFL" secondAttribute="top" id="Chl-pN-jTW"/>
+                                    <constraint firstItem="P4i-nD-cJf" firstAttribute="leading" secondItem="w74-Th-eFL" secondAttribute="leading" id="DMB-dg-DWm"/>
+                                    <constraint firstItem="P4i-nD-cJf" firstAttribute="trailing" secondItem="w74-Th-eFL" secondAttribute="trailing" id="bF0-jp-l9O"/>
+                                    <constraint firstItem="P4i-nD-cJf" firstAttribute="width" secondItem="w74-Th-eFL" secondAttribute="width" id="esg-ed-g2X"/>
+                                    <constraint firstItem="P4i-nD-cJf" firstAttribute="bottom" secondItem="w74-Th-eFL" secondAttribute="bottom" id="vix-gs-QnO"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="2"/>
-                                <state key="normal" title="帰宅" image="home">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="handleGoHomeButton:" destination="D3f-Op-Zua" eventType="touchUpInside" id="qJt-aE-Bsv"/>
-                                </connections>
-                            </button>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0Dd-OW-CoZ"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="0Dd-OW-CoZ" firstAttribute="trailing" secondItem="VKP-Bl-Nn8" secondAttribute="trailing" constant="10" id="0BW-i8-zT0"/>
-                            <constraint firstItem="0Dd-OW-CoZ" firstAttribute="trailing" secondItem="x92-wU-hSq" secondAttribute="trailing" constant="70" id="CiV-HG-7hd"/>
-                            <constraint firstItem="x92-wU-hSq" firstAttribute="top" secondItem="0Dd-OW-CoZ" secondAttribute="top" constant="30" id="IpJ-wl-KhH"/>
-                            <constraint firstItem="0Dd-OW-CoZ" firstAttribute="bottom" secondItem="VKP-Bl-Nn8" secondAttribute="bottom" constant="40" id="KU1-t8-Oes"/>
-                            <constraint firstItem="VKP-Bl-Nn8" firstAttribute="top" secondItem="x92-wU-hSq" secondAttribute="bottom" constant="30" id="pr9-n4-j7F"/>
-                            <constraint firstItem="VKP-Bl-Nn8" firstAttribute="leading" secondItem="0Dd-OW-CoZ" secondAttribute="leading" constant="10" id="sD8-bg-S9r"/>
-                            <constraint firstItem="x92-wU-hSq" firstAttribute="leading" secondItem="0Dd-OW-CoZ" secondAttribute="leading" constant="70" id="zLO-wv-UB0"/>
+                            <constraint firstItem="w74-Th-eFL" firstAttribute="trailing" secondItem="0Dd-OW-CoZ" secondAttribute="trailing" id="2V2-l5-4Iq"/>
+                            <constraint firstItem="w74-Th-eFL" firstAttribute="leading" secondItem="0Dd-OW-CoZ" secondAttribute="leading" id="DFt-ly-8Ys"/>
+                            <constraint firstItem="w74-Th-eFL" firstAttribute="top" secondItem="0Dd-OW-CoZ" secondAttribute="top" id="bc6-Dc-ruA"/>
+                            <constraint firstItem="w74-Th-eFL" firstAttribute="bottom" secondItem="0Dd-OW-CoZ" secondAttribute="bottom" id="nnU-Hc-2fW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="wFh-zi-Mie"/>
                     <connections>
                         <outlet property="collectionView" destination="VKP-Bl-Nn8" id="7Z0-Tl-itB"/>
+                        <outlet property="collectionViewHeightConstraint" destination="lDx-WW-vRB" id="skq-pS-Ur6"/>
                         <outlet property="goHomeButton" destination="x92-wU-hSq" id="NIX-X5-onO"/>
                         <segue destination="HNb-qd-F4v" kind="show" identifier="MediaSegue" id="AMI-OQ-s06"/>
                     </connections>

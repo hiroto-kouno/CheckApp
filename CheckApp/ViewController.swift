@@ -13,13 +13,14 @@ class ViewController: UIViewController {
     // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var goOutButton: UIButton!
+    @IBOutlet weak var goOutButton: Button!
     
     // MARK: - Private
     var realm: Realm?
     var list: List<CheckItem>?
     var itemNumber: Int = 0
-    let label: UILabel = UILabel()
+    let cameraLabel: UILabel = UILabel()
+    let isExistCellLabel: UILabel = UILabel()
     let userDefaults:UserDefaults = UserDefaults.standard
     var isDelete: Bool = false
     
@@ -55,14 +56,18 @@ class ViewController: UIViewController {
         //self.tableView.separatorColor = .gray
         //self.tableView.layer.borderWidth = 1.0
         self.tableView.layer.borderColor = UIColor.gray.cgColor
+        //
+        self.setIsExistCellLabel()
 
         print(self.tableView.contentSize.height)
-        // 出発ボタンのカスタマイズ
-        self.goOutButton.layer.masksToBounds = false
+        
+        // 出発ボタンのカスタマイズ → カスタムクラスにした。
+        /*self.goOutButton.layer.masksToBounds = false
         self.goOutButton.layer.shadowColor = UIColor.black.cgColor
         self.goOutButton.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
         self.goOutButton.layer.shadowOpacity = 0.3
-        self.goOutButton.layer.shadowRadius = 3.5
+        self.goOutButton.layer.shadowRadius = 3.5*/
+        
         // NavigationBarのカスタマイズ
         self.navigationItem.title = "チェックリスト"
         var editBarButtonItem = UIBarButtonItem(title: "削除", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
@@ -74,10 +79,22 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         print("aaaaaa")
         // テーブルの更新・高さの指定
+        
         guard let list = self.list else { return }
+        self.isExistCellLabel.isHidden = list.count != 0 ? true : false
+        self.goOutButton.isEnabled = list.count != 0 ? true : false
+        self.goOutButton.alpha = list.count != 0 ? 1 : 0.4
+        
+        /*if list.count == 0 {
+            //項目を追加して下しい。撮影ボタンを押せない(アラート)。削除ボタンを押せない。
+            self.isExistCellLabel.isHidden = false
+        }*/
         self.tableView.rowHeight = 60
         self.tableView.reloadData()
-        self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(list.count) - CGFloat(0.3)
+        self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(list.count) - CGFloat(0.8)
+        
+        self.isDelete = false
+        self.tableView.allowsSelectionDuringEditing = true
         
         print(self.tableViewHeight.constant)
         print(self.list)
@@ -99,9 +116,27 @@ class ViewController: UIViewController {
                 alert.addAction(noAction)
                 alert.addAction(yesAction)
         present(alert, animated: true, completion: nil)
+        /*UIView.animate(withDuration: 0.2) {
+            self.goOutButton.backgroundColor = UIColor(red: 0.427, green: 0.757, blue: 0.918, alpha: 1)
+            self.goOutButton.layer.shadowOpacity = 0.3
+        }*/
         // 撮影処理
         //self.generateCamera()
     }
+    @IBAction func touchDepatureButton(_ sender: Any) {
+        UIView.animate(withDuration: 0.2) {
+            self.goOutButton.backgroundColor = UIColor(red: 0.463, green: 0.816, blue: 0.988, alpha:0.7)
+            self.goOutButton.layer.shadowOpacity = 0.15
+        }
+    }
+
+    @IBAction func releaseDepatureButton(_ sender: Any) {
+        UIView.animate(withDuration: 0.2) {
+            self.goOutButton.backgroundColor = UIColor(red: 0.427, green: 0.757, blue: 0.918, alpha: 1)
+            self.goOutButton.layer.shadowOpacity = 0.3
+        }
+    }
+    
     
     // MARK: - Prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -149,6 +184,16 @@ class ViewController: UIViewController {
             self.realm?.add(checkItemList, update: .modified)
         }
     }
+    func setIsExistCellLabel() {
+        self.isExistCellLabel.text = "チェック項目がありません。"
+        self.isExistCellLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: self.view.frame.height / 2)
+        self.isExistCellLabel.textColor = .black
+        self.isExistCellLabel.center.x = self.view.center.x
+        self.isExistCellLabel.textAlignment = NSTextAlignment.center
+        self.isExistCellLabel.alpha = 1.0
+        self.view.addSubview(self.isExistCellLabel)
+        self.isExistCellLabel.isHidden = true
+    }
     // メディアを削除するメソッド
     func deleteMedia() {
         // チェックリスト,ドキュメントディレクトリを取得
@@ -177,6 +222,13 @@ class ViewController: UIViewController {
     @objc func editBarButtonTapped(_ sender: UIBarButtonItem) {
         // 削除モードの切り替え・テーブルの更新
         self.isDelete.toggle()
+        self.tableView.allowsSelectionDuringEditing.toggle()
+        guard let list = self.list else { return }
+        self.goOutButton.isEnabled.toggle()
+        let alpha = self.goOutButton.alpha == 1 ? 0.4 : 1
+        UIView.animate(withDuration: 0.2) {
+            self.goOutButton.alpha = alpha
+        }
         self.tableView.reloadData()
     }
     
@@ -193,18 +245,18 @@ class ViewController: UIViewController {
             guard let list = self.list else { return }
             pickerController.mediaTypes = list[itemNumber].isImage ? ["public.image"] : ["public.movie"]
             // ラベルの位置・設定
-            self.label.text = "\(list[itemNumber].title)を撮影してください"
-            self.label.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: 30)
-            self.label.textColor = .white
-            self.label.center.x = self.view.center.x
-            self.label.textAlignment = NSTextAlignment.center
-            self.label.alpha = 1.0
+            self.cameraLabel.text = "\(list[itemNumber].title)を撮影してください"
+            self.cameraLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: 30)
+            self.cameraLabel.textColor = .white
+            self.cameraLabel.center.x = self.view.center.x
+            self.cameraLabel.textAlignment = NSTextAlignment.center
+            self.cameraLabel.alpha = 1.0
             // 遷移
             self.present(pickerController, animated: true) {
                 //ラベルのアニメーション設定
-                pickerController.cameraOverlayView = self.label
+                pickerController.cameraOverlayView = self.cameraLabel
                 UIView.animate(withDuration: 2.0, delay: 3.0, options: [.curveEaseIn], animations: {
-                    self.label.alpha = 0.0
+                    self.cameraLabel.alpha = 0.0
                 }, completion: nil)
             }
         }
@@ -276,6 +328,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
         // テーブルを更新
         self.tableView.reloadData()
+        //self.tableView.contentOffset.y = 0
     }
     
     // 編集モードを選択するメソッド
@@ -303,8 +356,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             // テーブルから該当データを削除
             guard let list = self.list else { return }
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.tableViewHeight.constant = (self.tableView.rowHeight * CGFloat(list.count))
+            self.isExistCellLabel.isHidden = list.count != 0 ? true : false
+            self.goOutButton.isEnabled = list.count != 0 ? true : false
+            self.goOutButton.alpha = list.count != 0 ? 1 : 0.4
+            self.tableView.deleteRows(at: [indexPath], with: .none)
+            self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(list.count) - CGFloat(0.8)
             self.tableView.reloadData()
         }
     }
