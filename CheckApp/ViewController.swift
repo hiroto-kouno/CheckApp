@@ -20,9 +20,10 @@ class ViewController: UIViewController {
     var list: List<CheckItem>?
     var itemNumber: Int = 0
     let cameraLabel: UILabel = UILabel()
-    let isExistCellLabel: UILabel = UILabel()
+    let isNotExistCellLabel: UILabel = UILabel()
     let userDefaults:UserDefaults = UserDefaults.standard
     var isDelete: Bool = false
+    var listItemExists: Bool = true
     
     // MARK: - Lifecycle
     
@@ -57,20 +58,16 @@ class ViewController: UIViewController {
         //self.tableView.layer.borderWidth = 1.0
         self.tableView.layer.borderColor = UIColor.gray.cgColor
         //
-        self.setIsExistCellLabel()
-
+        self.setIsNotExistCellLabel()
         print(self.tableView.contentSize.height)
         
         // 出発ボタンのカスタマイズ → カスタムクラスにした。
-        /*self.goOutButton.layer.masksToBounds = false
-        self.goOutButton.layer.shadowColor = UIColor.black.cgColor
-        self.goOutButton.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
-        self.goOutButton.layer.shadowOpacity = 0.3
-        self.goOutButton.layer.shadowRadius = 3.5*/
+        goOutButton.imageEdgeInsets = UIEdgeInsets(top: 17, left: 0, bottom: 17, right: 0)
+        goOutButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 90)
         
         // NavigationBarのカスタマイズ
         self.navigationItem.title = "チェックリスト"
-        var editBarButtonItem = UIBarButtonItem(title: "削除", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
+        var editBarButtonItem = UIBarButtonItem(title: "削除", style: .plain, target: self, action: #selector(editBarButtonTapped(_:)))
         self.navigationItem.leftBarButtonItems = [editBarButtonItem]
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
@@ -81,9 +78,25 @@ class ViewController: UIViewController {
         // テーブルの更新・高さの指定
         
         guard let list = self.list else { return }
-        self.isExistCellLabel.isHidden = list.count != 0 ? true : false
+        
+        if list.count == 0 {
+            self.listItemExists = false
+            self.isNotExistCellLabel.isHidden = false
+            self.goOutButton.isEnabled = false
+            self.navigationItem.leftBarButtonItems?[0].isEnabled = false
+            self.goOutButton.alpha = 0.4
+        } else {
+            self.goOutButton.isEnabled = true
+            self.isNotExistCellLabel.isHidden = true
+            self.navigationItem.leftBarButtonItems?[0].isEnabled = true
+            self.goOutButton.alpha = 1
+        }
+        
+        self.navigationItem.leftBarButtonItems?[0].title = "削除"
+        self.navigationItem.leftBarButtonItems?[0].style = .plain
+        /*self.isExistCellLabel.isHidden = list.count != 0 ? true : false
         self.goOutButton.isEnabled = list.count != 0 ? true : false
-        self.goOutButton.alpha = list.count != 0 ? 1 : 0.4
+        self.goOutButton.alpha = list.count != 0 ? 1 : 0.4*/
         
         /*if list.count == 0 {
             //項目を追加して下しい。撮影ボタンを押せない(アラート)。削除ボタンを押せない。
@@ -184,15 +197,21 @@ class ViewController: UIViewController {
             self.realm?.add(checkItemList, update: .modified)
         }
     }
-    func setIsExistCellLabel() {
-        self.isExistCellLabel.text = "チェック項目がありません。"
-        self.isExistCellLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: self.view.frame.height / 2)
-        self.isExistCellLabel.textColor = .black
-        self.isExistCellLabel.center.x = self.view.center.x
-        self.isExistCellLabel.textAlignment = NSTextAlignment.center
-        self.isExistCellLabel.alpha = 1.0
-        self.view.addSubview(self.isExistCellLabel)
-        self.isExistCellLabel.isHidden = true
+    
+    func changeGoOutButtonAppearance(_ alpha :CGFloat) {
+        UIView.animate(withDuration: 0.2) {
+            self.goOutButton.alpha = alpha
+        }
+    }
+    func setIsNotExistCellLabel() {
+        self.isNotExistCellLabel.text = "チェック項目がありません。"
+        self.isNotExistCellLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: self.view.frame.height / 2)
+        self.isNotExistCellLabel.textColor = .black
+        self.isNotExistCellLabel.center.x = self.view.center.x
+        self.isNotExistCellLabel.textAlignment = NSTextAlignment.center
+        self.isNotExistCellLabel.alpha = 1.0
+        self.view.addSubview(self.isNotExistCellLabel)
+        self.isNotExistCellLabel.isHidden = true
     }
     // メディアを削除するメソッド
     func deleteMedia() {
@@ -220,15 +239,25 @@ class ViewController: UIViewController {
     
     // 削除ボタンをタップしたときに呼ばれるメソッド
     @objc func editBarButtonTapped(_ sender: UIBarButtonItem) {
+        guard let count = self.list?.count else { return }
+        if count == 0 { return }
         // 削除モードの切り替え・テーブルの更新
+        var alpha: CGFloat = 1.0
+        if(sender.title == "削除") {
+            sender.title = "完了"
+            sender.style = .done
+            alpha = 0.4
+        } else {
+            sender.title = "削除"
+            sender.style = .plain
+        }
         self.isDelete.toggle()
         self.tableView.allowsSelectionDuringEditing.toggle()
-        guard let list = self.list else { return }
         self.goOutButton.isEnabled.toggle()
-        let alpha = self.goOutButton.alpha == 1 ? 0.4 : 1
         UIView.animate(withDuration: 0.2) {
             self.goOutButton.alpha = alpha
         }
+        //changeGoOutButtonAppearance(alpha)
         self.tableView.reloadData()
     }
     
@@ -355,13 +384,22 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 self.realm?.delete(item)
             }
             // テーブルから該当データを削除
-            guard let list = self.list else { return }
-            self.isExistCellLabel.isHidden = list.count != 0 ? true : false
-            self.goOutButton.isEnabled = list.count != 0 ? true : false
-            self.goOutButton.alpha = list.count != 0 ? 1 : 0.4
-            self.tableView.deleteRows(at: [indexPath], with: .none)
-            self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(list.count) - CGFloat(0.8)
-            self.tableView.reloadData()
+            guard let count = self.list?.count else { return }
+            
+            if count == 0 {
+                self.isNotExistCellLabel.isHidden = false
+                self.goOutButton.isEnabled = false
+                self.goOutButton.alpha = 0.4
+                self.navigationItem.leftBarButtonItems?[0].title = "削除"
+                self.navigationItem.leftBarButtonItems?[0].style = .plain
+                self.navigationItem.leftBarButtonItems?[0].isEnabled = false
+            }
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+                self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(count) - CGFloat(0.8)
+                self.tableView.reloadData()
+            }
         }
     }
     

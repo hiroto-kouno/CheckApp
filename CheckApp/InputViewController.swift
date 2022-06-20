@@ -38,12 +38,6 @@ class InputViewController: UIViewController {
             isImage = false
         }
         //　ボタンのカスタマイズ
-        /*self.button.layer.masksToBounds = false
-        self.button.layer.shadowColor = UIColor.black.cgColor
-        self.button.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
-        self.button.layer.shadowOpacity = 0.3
-        self.button.layer.shadowRadius = 3.5*/
-        button.imageView?.contentMode = .scaleAspectFit
         button.imageEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 18)
         // segmentedControlのカスタマイズ
         let customOrange: UIColor = UIColor(red: 0.918, green: 0.584, blue: 0.427, alpha: 1)
@@ -86,7 +80,4 @@ class InputViewController: UIViewController {
         // チェックリストに戻る
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
-
 }

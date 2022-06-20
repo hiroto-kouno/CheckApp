@@ -39,11 +39,8 @@ class CheckViewController: UIViewController {
         
         
         // 帰宅ボタンのカスタマイズ
-        /*self.goHomeButton.layer.masksToBounds = false
-        self.goHomeButton.layer.shadowColor = UIColor.black.cgColor
-        self.goHomeButton.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
-        self.goHomeButton.layer.shadowOpacity = 0.3
-        self.goHomeButton.layer.shadowRadius = 3.5*/
+        goHomeButton.imageEdgeInsets = UIEdgeInsets(top: 17, left: 0, bottom: 17, right: 0)
+        goHomeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 90)
         // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = self.userDefaults.string(forKey: "date")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -53,8 +50,6 @@ class CheckViewController: UIViewController {
         super.viewWillAppear(animated)
         // コレクションビューを更新
         self.collectionView.reloadData()
-        /*guard let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover") else { return }
-        self.present(popoverViewController, animated: true, completion: nil)*/
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,7 +60,7 @@ class CheckViewController: UIViewController {
         layout.minimumLineSpacing = 15
         self.collectionView.collectionViewLayout = layout
         
-        guard let list = self.list else { return }
+        //guard let list = self.list else { return }
         print(self.collectionView.contentSize.height)
         self.collectionViewHeightConstraint.constant = self.collectionView.contentSize.height + CGFloat(10.0)
     }

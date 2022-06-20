@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0U-GZ-BbW">
-                        <rect key="frame" x="20" y="10" width="205" height="40"/>
+                        <rect key="frame" x="20" y="10" width="215" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="tLl-iG-Ef6"/>
                         </constraints>
@@ -27,28 +27,28 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yc1-NB-ohI">
-                        <rect key="frame" x="235" y="10" width="75" height="40"/>
+                        <rect key="frame" x="245" y="15" width="65" height="30"/>
                         <color key="backgroundColor" red="0.93110931872749092" green="0.92927577280912366" blue="0.93363063975590233" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="1Xf-bI-xA4"/>
-                            <constraint firstAttribute="width" constant="75" id="Pf4-yC-MJD"/>
+                            <constraint firstAttribute="height" constant="30" id="1Xf-bI-xA4"/>
+                            <constraint firstAttribute="width" constant="65" id="Pf4-yC-MJD"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="20"/>
+                                <integer key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Yc1-NB-ohI" secondAttribute="bottom" constant="10" id="6ex-Vi-rUC"/>
+                    <constraint firstAttribute="bottom" secondItem="Yc1-NB-ohI" secondAttribute="bottom" constant="15" id="6ex-Vi-rUC"/>
                     <constraint firstItem="a0U-GZ-BbW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="7dB-56-aZt"/>
                     <constraint firstItem="Yc1-NB-ohI" firstAttribute="leading" secondItem="a0U-GZ-BbW" secondAttribute="trailing" constant="10" id="A2h-BH-KEt"/>
-                    <constraint firstItem="Yc1-NB-ohI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="H6X-Gw-KQW"/>
+                    <constraint firstItem="Yc1-NB-ohI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="H6X-Gw-KQW"/>
                     <constraint firstAttribute="trailing" secondItem="Yc1-NB-ohI" secondAttribute="trailing" constant="10" id="dUr-Va-dsI"/>
                     <constraint firstItem="a0U-GZ-BbW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fCl-XJ-HCq"/>
                     <constraint firstAttribute="bottom" secondItem="a0U-GZ-BbW" secondAttribute="bottom" constant="10" id="fp1-Xm-x9r"/>

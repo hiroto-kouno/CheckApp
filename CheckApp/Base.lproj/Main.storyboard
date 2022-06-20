@@ -57,13 +57,13 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="Gbb-J5-Ncl"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                                                <state key="normal" title="出発" image="camera">
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="90" maxY="0.0"/>
+                                                <state key="normal" title="出発" image="camera-1">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <state key="selected" image="camera"/>
-                                                <state key="highlighted" image="camera"/>
+                                                <state key="highlighted" image="camera-1"/>
                                                 <connections>
                                                     <action selector="handleDepatureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SR8-fB-Tpy"/>
                                                 </connections>
@@ -149,13 +149,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAb-IZ-47K" customClass="Button" customModule="CheckApp" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAb-IZ-47K" customClass="Button" customModule="CheckApp" customModuleProvider="target">
                                 <rect key="frame" x="20" y="262.5" width="374" height="50"/>
                                 <color key="backgroundColor" red="0.42745098040000001" green="0.75686274509999996" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="29O-7K-RYH"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                 <state key="normal" title="保存" image="save">
                                     <color key="titleColor" red="0.99607843139999996" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -269,16 +269,14 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DB-2s-I5h">
-                                        <rect key="frame" x="70" y="341" width="174" height="39"/>
+                                        <rect key="frame" x="70" y="338" width="174" height="42"/>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.58431372550000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="tintColor" red="0.99607843139999996" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="OK">
-                                            <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" red="0.91764705879999997" green="0.58431372550000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            </backgroundConfiguration>
-                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="10"/>
@@ -304,8 +302,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="外出をお楽しみください！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6p-ig-iCg">
-                                        <rect key="frame" x="8" y="305" width="314" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <rect key="frame" x="8" y="305" width="314" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                         <color key="textColor" red="0.91764705879999997" green="0.58431372550000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -379,9 +377,10 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="ZsB-UL-KzL"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="2"/>
-                                                <state key="normal" title="帰宅" image="home"/>
+                                                <state key="normal" title="帰宅" image="home-1"/>
                                                 <connections>
                                                     <action selector="handleGoHomeButton:" destination="D3f-Op-Zua" eventType="touchUpInside" id="qJt-aE-Bsv"/>
                                                 </connections>
@@ -522,7 +521,8 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera" width="25" height="25"/>
-        <image name="home" width="25" height="25"/>
+        <image name="camera-1" width="128" height="128"/>
+        <image name="home-1" width="128" height="128"/>
         <image name="save" width="25" height="25"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

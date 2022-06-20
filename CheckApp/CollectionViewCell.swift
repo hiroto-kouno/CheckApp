@@ -18,11 +18,10 @@ class CollectionViewCell: UICollectionViewCell {
     // MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
-        // セルのデザイン
-        //self.layer.borderWidth = 0.5
-        //self.layer.borderColor = UIColor.lightGray.cgColor
+        // セルを丸くする
         self.layer.cornerRadius = 15
         self.layer.masksToBounds = false
+        // 影ビューの設定
         self.shadowView.layer.cornerRadius = 15
         self.shadowView.layer.shadowColor = UIColor.black.cgColor
         self.shadowView.layer.shadowOffset = CGSize(width: 0.5, height: 3.5)
@@ -35,17 +34,20 @@ class CollectionViewCell: UICollectionViewCell {
 }
 
 extension CollectionViewCell {
+    // 押下時
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        // ボタン押下をイメージしたアニメーション
         UIView.animate(withDuration: 0.2) {
             self.alpha = 0.55
             self.shadowView.layer.shadowOpacity = 0.15
         }
     }
     
+    // 押下終了時
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
             super.touchesEnded(touches, with: event)
-            // ボタンが押され終えたとき
+        // セルを元に戻すアニメーション
         UIView.animate(withDuration: 0.2) {
             self.alpha = 1.0
             self.shadowView.layer.shadowOpacity = 0.3
