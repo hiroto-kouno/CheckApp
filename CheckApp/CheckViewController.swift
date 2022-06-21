@@ -37,7 +37,6 @@ class CheckViewController: UIViewController {
         // コレクションビューのセルサイズ指定
         //self.collectionView.frame.width = self.frame.width - 20
         
-        
         // 帰宅ボタンのカスタマイズ
         goHomeButton.imageEdgeInsets = UIEdgeInsets(top: 17, left: 0, bottom: 17, right: 0)
         goHomeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 90)
@@ -62,14 +61,15 @@ class CheckViewController: UIViewController {
         
         //guard let list = self.list else { return }
         print(self.collectionView.contentSize.height)
-        self.collectionViewHeightConstraint.constant = self.collectionView.contentSize.height + CGFloat(10.0)
+        self.collectionViewHeightConstraint.constant
+        self.collectionView.contentSize.height + CGFloat(10.0)
     }
     
     // MARK: - IBAction
     // 帰宅ボタンを押したときに呼ばれるメソッド
     @IBAction func handleGoHomeButton(_ sender: Any) {
-        // チェックリスト,ドキュメントディレクトリを取得
-        guard let list = self.list, let documentsDirectoryUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        // ドキュメントディレクトリを取得
+        //guard let documentsDirectoryUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let alert = UIAlertController(title: "チェックリスト画面に戻ります。\nよろしいですか？", message: "撮影したメディアは全て削除されます。", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "はい", style: .default) { (UIAlertAction) in
             print("「はい」が選択されました！")
@@ -87,35 +87,6 @@ class CheckViewController: UIViewController {
         alert.addAction(noAction)
         alert.addAction(yesAction)
         present(alert, animated: true, completion: nil)
-        /*
-        // 保存先のパスを削除
-        for checkItem in list {
-            let mediaType: String = checkItem.isImage ? ".jpg" : ".MOV"
-            let path: String = documentsDirectoryUrl.appendingPathComponent(checkItem.path + mediaType).path
-            do {
-                try FileManager.default.removeItem(atPath: path)
-            } catch {
-                print(error)
-            }
-        }
-        // チェックリスト画面に戻る
-        if let listNavigation = self.storyboard?.instantiateViewController(withIdentifier: "ListNavigation") {
-            self.present(listNavigation, animated: true)
-        }
-        
-        var videoUrls = [URL]()
-
-        do {
-            // Documentから動画ファイルのURLを取得
-            videoUrls = try FileManager.default.contentsOfDirectory(at: documentsDirectoryUrl, includingPropertiesForKeys: nil)
-        } catch {
-            print("フォルダが空です。")
-        }
-        // 起動時の画面をチェックリスト画面に切り替え
-        self.userDefaults.set(false, forKey: "isGoOut")
-        self.userDefaults.synchronize()
-        
-        print("\(videoUrls):video")*/
     }
     
     // MARK: - prepare
