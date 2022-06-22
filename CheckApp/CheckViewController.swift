@@ -61,8 +61,7 @@ class CheckViewController: UIViewController {
         
         //guard let list = self.list else { return }
         print(self.collectionView.contentSize.height)
-        self.collectionViewHeightConstraint.constant
-        self.collectionView.contentSize.height + CGFloat(10.0)
+        self.collectionViewHeightConstraint.constant = self.collectionView.contentSize.height + CGFloat(10.0)
     }
     
     // MARK: - IBAction

@@ -28,9 +28,7 @@ class Button: UIButton {
         self.layer.cornerRadius = 10
         self.imageView?.contentMode = .scaleAspectFit
     }
-}
-
-extension Button {
+    
     // 押下時
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -49,6 +47,6 @@ extension Button {
             self.layer.shadowOpacity = 0.3
         }
     }
-    
 }
+
 
