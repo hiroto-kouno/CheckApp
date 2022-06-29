@@ -42,6 +42,7 @@ class CheckViewController: UIViewController {
         goHomeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 90)
         // ナビゲーションバーのカスタマイズ
         self.navigationItem.title = self.userDefaults.string(forKey: "date")
+        //self.navigationItem.title = "2022/06/24"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
@@ -49,6 +50,8 @@ class CheckViewController: UIViewController {
         super.viewWillAppear(animated)
         // コレクションビューを更新
         self.collectionView.reloadData()
+        //guard let popoverViewController = self.storyboard?.instantiateViewController(withIdentifier: "Popover") else { return }
+        //self.present(popoverViewController, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {

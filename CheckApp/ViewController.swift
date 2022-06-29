@@ -274,9 +274,15 @@ class ViewController: UIViewController {
             guard let list = self.list else { return }
             pickerController.mediaTypes = list[itemNumber].isImage ? ["public.image"] : ["public.movie"]
             // ラベルの位置・設定
+            
+            self.cameraLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
             self.cameraLabel.text = "\(list[itemNumber].title)を撮影してください"
-            self.cameraLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: 30)
+            self.cameraLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width-30, height: 30)
+            self.cameraLabel.font = UIFont.systemFont(ofSize: 20)
+            self.cameraLabel.sizeToFit()
             self.cameraLabel.textColor = .white
+            self.cameraLabel.layer.cornerRadius = 0
+            self.cameraLabel.clipsToBounds = true
             self.cameraLabel.center.x = self.view.center.x
             self.cameraLabel.textAlignment = NSTextAlignment.center
             self.cameraLabel.alpha = 1.0
@@ -396,7 +402,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             self.tableView.deleteRows(at: [indexPath], with: .fade)
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
                 self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(count) - CGFloat(0.8)
                 self.tableView.reloadData()
             }
