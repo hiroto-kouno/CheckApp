@@ -19,7 +19,8 @@ class ViewController: UIViewController {
     var realm: Realm?
     var list: List<CheckItem>?
     var itemNumber: Int = 0
-    let cameraLabel: UILabel = UILabel()
+    let cameraLabel: UILabel = CameraLabel()
+    let cameraView: UIView = CameraView()
     let isNotExistCellLabel: UILabel = UILabel()
     let userDefaults:UserDefaults = UserDefaults.standard
     var isDelete: Bool = false
@@ -54,8 +55,6 @@ class ViewController: UIViewController {
         // 編集モードにする
         self.tableView.isEditing = true
         // TableViewのカスタマイズ
-        //self.tableView.separatorColor = .gray
-        //self.tableView.layer.borderWidth = 1.0
         self.tableView.layer.borderColor = UIColor.gray.cgColor
         //
         self.setIsNotExistCellLabel()
@@ -94,14 +93,7 @@ class ViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItems?[0].title = "削除"
         self.navigationItem.leftBarButtonItems?[0].style = .plain
-        /*self.isExistCellLabel.isHidden = list.count != 0 ? true : false
-        self.goOutButton.isEnabled = list.count != 0 ? true : false
-        self.goOutButton.alpha = list.count != 0 ? 1 : 0.4*/
-        
-        /*if list.count == 0 {
-            //項目を追加して下しい。撮影ボタンを押せない(アラート)。削除ボタンを押せない。
-            self.isExistCellLabel.isHidden = false
-        }*/
+
         self.tableView.rowHeight = 60
         self.tableView.reloadData()
         self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(list.count) - CGFloat(0.8)
@@ -274,24 +266,20 @@ class ViewController: UIViewController {
             guard let list = self.list else { return }
             pickerController.mediaTypes = list[itemNumber].isImage ? ["public.image"] : ["public.movie"]
             // ラベルの位置・設定
-            
-            self.cameraLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
             self.cameraLabel.text = "\(list[itemNumber].title)を撮影してください"
-            self.cameraLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width-30, height: 30)
-            self.cameraLabel.font = UIFont.systemFont(ofSize: 20)
             self.cameraLabel.sizeToFit()
-            self.cameraLabel.textColor = .white
-            self.cameraLabel.layer.cornerRadius = 0
-            self.cameraLabel.clipsToBounds = true
-            self.cameraLabel.center.x = self.view.center.x
-            self.cameraLabel.textAlignment = NSTextAlignment.center
-            self.cameraLabel.alpha = 1.0
+            self.cameraView.alpha = 1.0
+            self.cameraView.frame = CGRect(x: 200, y: 180, width: self.cameraLabel.frame.width + 50, height: 30)
+            self.cameraView.center.x = self.view.center.x
+            self.cameraLabel.center = CGPoint(x: cameraView.frame.size.width / 2,
+                                              y: cameraView.frame.size.height / 2)
+            self.cameraView.addSubview(self.cameraLabel)
             // 遷移
             self.present(pickerController, animated: true) {
                 //ラベルのアニメーション設定
-                pickerController.cameraOverlayView = self.cameraLabel
+                pickerController.cameraOverlayView = self.cameraView
                 UIView.animate(withDuration: 2.0, delay: 3.0, options: [.curveEaseIn], animations: {
-                    self.cameraLabel.alpha = 0.0
+                    self.cameraView.alpha = 0.0
                 }, completion: nil)
             }
         }

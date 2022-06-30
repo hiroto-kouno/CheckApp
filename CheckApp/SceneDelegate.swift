@@ -18,13 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         // guard let _ = (scene as? UIWindowScene) else { return }
+        // 初回起動時の画面を設定
         guard let winScene = (scene as? UIWindowScene) else { return }
-        
         let mainstoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let initialNavigation: String = UserDefaults.standard.bool(forKey: "isGoOut") ? "CheckNavigation" : "ListNavigation"
-        print(initialNavigation)
         let initialViewController = mainstoryboard.instantiateViewController(withIdentifier: initialNavigation) as! UINavigationController
-        
         let win = UIWindow(windowScene: winScene)
         win.rootViewController = initialViewController
         win.makeKeyAndVisible()

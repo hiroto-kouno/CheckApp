@@ -1,5 +1,5 @@
 //
-//  CameraLabel.swift
+//  CameraView.swift
 //  CheckApp
 //
 //  Created by 河野 裕門 on 2022/06/30.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CameraLabel: UILabel {
+class CameraView: UIView {
 
     // MARK: - init
     required init?(coder aDecoder: NSCoder) {
@@ -21,9 +21,9 @@ class CameraLabel: UILabel {
     // MARK: - Private method
     // ボタンの見た目をカスタマイズ
     func setAppearanceSetting() {
-        self.font = UIFont.systemFont(ofSize: 20)
-        self.textColor = .white
-        self.textAlignment = NSTextAlignment.center
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 15
+        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
     }
 
 }

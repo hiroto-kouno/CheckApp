@@ -11,7 +11,8 @@
 		0751C091285191DB00B37ED1 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0751C08F285191DB00B37ED1 /* CollectionViewCell.xib */; };
 		0751C0932851938A00B37ED1 /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C0922851938A00B37ED1 /* CheckViewController.swift */; };
 		0751C0952851C5A500B37ED1 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751C0942851C5A500B37ED1 /* PopoverViewController.swift */; };
-		07904B3A286BDDE60086936C /* CameraLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07904B39286BDDE60086936C /* CameraLabel.swift */; };
+		07904B3C286CB3AE0086936C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07904B3B286CB3AE0086936C /* CameraView.swift */; };
+		07904B3E286CB51A0086936C /* CameraLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07904B3D286CB51A0086936C /* CameraLabel.swift */; };
 		07BCC34F2853133F006BD49A /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCC34E2853133F006BD49A /* MediaViewController.swift */; };
 		07DEBB2F2856DAFB00547DC8 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DEBB2E2856DAFB00547DC8 /* MovieView.swift */; };
 		07ED1052285C48B900118964 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ED1051285C48B900118964 /* Button.swift */; };
@@ -34,7 +35,8 @@
 		0751C08F285191DB00B37ED1 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		0751C0922851938A00B37ED1 /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
 		0751C0942851C5A500B37ED1 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		07904B39286BDDE60086936C /* CameraLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLabel.swift; sourceTree = "<group>"; };
+		07904B3B286CB3AE0086936C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		07904B3D286CB51A0086936C /* CameraLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLabel.swift; sourceTree = "<group>"; };
 		07BCC34E2853133F006BD49A /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		07DEBB2E2856DAFB00547DC8 /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		07ED1051285C48B900118964 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -102,9 +104,10 @@
 				0751C0942851C5A500B37ED1 /* PopoverViewController.swift */,
 				07EE57432849A4860046E3FF /* CheckItemTableViewCell.xib */,
 				07BCC34E2853133F006BD49A /* MediaViewController.swift */,
-				07904B39286BDDE60086936C /* CameraLabel.swift */,
 				07DEBB2E2856DAFB00547DC8 /* MovieView.swift */,
 				07ED1051285C48B900118964 /* Button.swift */,
+				07904B3B286CB3AE0086936C /* CameraView.swift */,
+				07904B3D286CB51A0086936C /* CameraLabel.swift */,
 				07EE5732284996440046E3FF /* Main.storyboard */,
 				07EE5735284996470046E3FF /* Assets.xcassets */,
 				07EE5737284996470046E3FF /* LaunchScreen.storyboard */,
@@ -248,13 +251,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0751C090285191DB00B37ED1 /* CollectionViewCell.swift in Sources */,
+				07904B3C286CB3AE0086936C /* CameraView.swift in Sources */,
 				07DEBB2F2856DAFB00547DC8 /* MovieView.swift in Sources */,
 				07EE57442849A4860046E3FF /* CheckItemTableViewCell.swift in Sources */,
 				07EE5731284996440046E3FF /* ViewController.swift in Sources */,
 				07EE572D284996440046E3FF /* AppDelegate.swift in Sources */,
+				07904B3E286CB51A0086936C /* CameraLabel.swift in Sources */,
 				0751C0952851C5A500B37ED1 /* PopoverViewController.swift in Sources */,
 				07EE57472849C1DB0046E3FF /* InputViewController.swift in Sources */,
-				07904B3A286BDDE60086936C /* CameraLabel.swift in Sources */,
 				07EE572F284996440046E3FF /* SceneDelegate.swift in Sources */,
 				07EE576B284BB9080046E3FF /* CheckItemList.swift in Sources */,
 				07EE5741284999A00046E3FF /* CheckItem.swift in Sources */,
