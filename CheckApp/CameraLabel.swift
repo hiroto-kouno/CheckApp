@@ -19,7 +19,7 @@ class CameraLabel: UILabel {
         self.setAppearanceSetting()
     }
     // MARK: - Private method
-    // ボタンの見た目をカスタマイズ
+    // 文字をカスタマイズ
     func setAppearanceSetting() {
         self.font = UIFont.systemFont(ofSize: 20)
         self.textColor = .white

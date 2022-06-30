@@ -19,7 +19,7 @@ class CameraView: UIView {
         self.setAppearanceSetting()
     }
     // MARK: - Private method
-    // ボタンの見た目をカスタマイズ
+    // Viewの見た目をカスタマイズ
     func setAppearanceSetting() {
         self.clipsToBounds = true
         self.layer.cornerRadius = 15

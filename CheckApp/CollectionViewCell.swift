@@ -31,9 +31,7 @@ class CollectionViewCell: UICollectionViewCell {
         self.thumbnail.layer.cornerRadius = 7
         self.thumbnail.clipsToBounds = true
     }
-}
-
-extension CollectionViewCell {
+    
     // 押下時
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -53,5 +51,4 @@ extension CollectionViewCell {
             self.shadowView.layer.shadowOpacity = 0.3
         }
     }
-    
 }

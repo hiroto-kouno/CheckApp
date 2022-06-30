@@ -24,7 +24,6 @@ class ViewController: UIViewController {
     let isNotExistCellLabel: UILabel = UILabel()
     let userDefaults:UserDefaults = UserDefaults.standard
     var isDelete: Bool = false
-    var listItemExists: Bool = true
     
     // MARK: - Lifecycle
     
@@ -39,11 +38,8 @@ class ViewController: UIViewController {
             self.userDefaults.synchronize()
             self.insertSeedData()
         }
-        print(userDefaults.bool(forKey: "isGoOut"))
         // チェックリストの作成
         self.list = self.realm?.objects(CheckItemList.self).first?.list
-        
-        print(self.list)
         // 全メディアファイルの削除
         self.deleteMedia()
         // デリゲート
@@ -54,32 +50,24 @@ class ViewController: UIViewController {
         self.tableView.register(nib, forCellReuseIdentifier: "Cell")
         // 編集モードにする
         self.tableView.isEditing = true
-        // TableViewのカスタマイズ
-        self.tableView.layer.borderColor = UIColor.gray.cgColor
-        //
+        // チェックリストが空の時用のラベルを設定
         self.setIsNotExistCellLabel()
-        print(self.tableView.contentSize.height)
-        
-        // 出発ボタンのカスタマイズ → カスタムクラスにした。
+        // 出発ボタンのカスタマイズ
         goOutButton.imageEdgeInsets = UIEdgeInsets(top: 17, left: 0, bottom: 17, right: 0)
         goOutButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 90)
-        
         // NavigationBarのカスタマイズ
         self.navigationItem.title = "チェックリスト"
-        var editBarButtonItem = UIBarButtonItem(title: "削除", style: .plain, target: self, action: #selector(editBarButtonTapped(_:)))
+        let editBarButtonItem = UIBarButtonItem(title: "削除", style: .plain, target: self, action: #selector(editBarButtonTapped(_:)))
         self.navigationItem.leftBarButtonItems = [editBarButtonItem]
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("aaaaaa")
-        // テーブルの更新・高さの指定
-        
+        // リストの取得
         guard let list = self.list else { return }
-        
+        // リストが空の場合、ラベルを表示し、追加ボタンのみを有効にする。
         if list.count == 0 {
-            self.listItemExists = false
             self.isNotExistCellLabel.isHidden = false
             self.goOutButton.isEnabled = false
             self.navigationItem.leftBarButtonItems?[0].isEnabled = false
@@ -90,19 +78,16 @@ class ViewController: UIViewController {
             self.navigationItem.leftBarButtonItems?[0].isEnabled = true
             self.goOutButton.alpha = 1
         }
-        
+        // 削除ボタンの再設定
         self.navigationItem.leftBarButtonItems?[0].title = "削除"
         self.navigationItem.leftBarButtonItems?[0].style = .plain
-
+        // テーブルの高さの設定
         self.tableView.rowHeight = 60
         self.tableView.reloadData()
         self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(list.count) - CGFloat(0.8)
-        
+        // 削除モードをオフにする
         self.isDelete = false
         self.tableView.allowsSelectionDuringEditing = true
-        
-        print(self.tableViewHeight.constant)
-        print(self.list)
         showDocumentDirectory()
     }
     
@@ -110,38 +95,20 @@ class ViewController: UIViewController {
     @IBAction func handleDepatureButton(_ sender: Any) {
         // 撮影番号の初期化
         self.itemNumber = 0
+        // アラートの設定
         let alert = UIAlertController(title: "チェック項目の撮影を開始します。\nよろしいですか？", message: "", preferredStyle: .alert)
+        // 撮影へ
         let yesAction = UIAlertAction(title: "はい", style: .default) { (UIAlertAction) in
-            print("「はい」が選択されました！")
             self.generateCamera()
         }
         let noAction = UIAlertAction(title: "いいえ", style: .default) { (UIAlertAction) in
-            print("「いいえ」が選択されました！")
+            
         }
-                alert.addAction(noAction)
-                alert.addAction(yesAction)
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
+        // アラートの表示
         present(alert, animated: true, completion: nil)
-        /*UIView.animate(withDuration: 0.2) {
-            self.goOutButton.backgroundColor = UIColor(red: 0.427, green: 0.757, blue: 0.918, alpha: 1)
-            self.goOutButton.layer.shadowOpacity = 0.3
-        }*/
-        // 撮影処理
-        //self.generateCamera()
     }
-    @IBAction func touchDepatureButton(_ sender: Any) {
-        UIView.animate(withDuration: 0.2) {
-            self.goOutButton.backgroundColor = UIColor(red: 0.463, green: 0.816, blue: 0.988, alpha:0.7)
-            self.goOutButton.layer.shadowOpacity = 0.15
-        }
-    }
-
-    @IBAction func releaseDepatureButton(_ sender: Any) {
-        UIView.animate(withDuration: 0.2) {
-            self.goOutButton.backgroundColor = UIColor(red: 0.427, green: 0.757, blue: 0.918, alpha: 1)
-            self.goOutButton.layer.shadowOpacity = 0.3
-        }
-    }
-    
     
     // MARK: - Prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -149,11 +116,9 @@ class ViewController: UIViewController {
         // セルを選択した場合、該当データを渡す
         if segue.identifier == "cellSegue", let list = self.list ,
            let indexPath = self.tableView.indexPathForSelectedRow {
-            print("cellSegue")
             inputViewController.checkItem = list[indexPath.row]
             inputViewController.isAdd = false
         } else { // 新規作成ボタンを押した場合、新規データを渡す
-            print("addSegue")
             let checkItem = CheckItem()
             inputViewController.isAdd = true
             if let allItems = self.realm?.objects(CheckItem.self), allItems.count != 0 {
@@ -183,18 +148,12 @@ class ViewController: UIViewController {
             }
             checkItemList.list.append(checkItem)
         }
-        print("999")
         // リストをrealmに書き込み
         try? self.realm?.write {
             self.realm?.add(checkItemList, update: .modified)
         }
     }
-    
-    func changeGoOutButtonAppearance(_ alpha :CGFloat) {
-        UIView.animate(withDuration: 0.2) {
-            self.goOutButton.alpha = alpha
-        }
-    }
+    // テーブルが空の場合のラベルの設定
     func setIsNotExistCellLabel() {
         self.isNotExistCellLabel.text = "チェック項目がありません。"
         self.isNotExistCellLabel.frame = CGRect(x: 200, y: 170, width: self.view.frame.width, height: self.view.frame.height / 2)
@@ -226,15 +185,15 @@ class ViewController: UIViewController {
         }
         // コンソール用
         showDocumentDirectory()
-        
     }
     
     // 削除ボタンをタップしたときに呼ばれるメソッド
     @objc func editBarButtonTapped(_ sender: UIBarButtonItem) {
         guard let count = self.list?.count else { return }
         if count == 0 { return }
-        // 削除モードの切り替え・テーブルの更新
+
         var alpha: CGFloat = 1.0
+        // ボタンタップ時に文言を変更する。
         if(sender.title == "削除") {
             sender.title = "完了"
             sender.style = .done
@@ -243,13 +202,15 @@ class ViewController: UIViewController {
             sender.title = "削除"
             sender.style = .plain
         }
+        // 削除モード・テーブル選択可能を切り替え
         self.isDelete.toggle()
         self.tableView.allowsSelectionDuringEditing.toggle()
+        // ボタン使用可能の切り替え
         self.goOutButton.isEnabled.toggle()
         UIView.animate(withDuration: 0.2) {
             self.goOutButton.alpha = alpha
         }
-        //changeGoOutButtonAppearance(alpha)
+        // テーブルを更新
         self.tableView.reloadData()
     }
     
@@ -274,7 +235,7 @@ class ViewController: UIViewController {
             self.cameraLabel.center = CGPoint(x: cameraView.frame.size.width / 2,
                                               y: cameraView.frame.size.height / 2)
             self.cameraView.addSubview(self.cameraLabel)
-            // 遷移
+            // カメラを開く
             self.present(pickerController, animated: true) {
                 //ラベルのアニメーション設定
                 pickerController.cameraOverlayView = self.cameraView
@@ -351,7 +312,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
         // テーブルを更新
         self.tableView.reloadData()
-        //self.tableView.contentOffset.y = 0
     }
     
     // 編集モードを選択するメソッド
@@ -364,10 +324,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    //
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-            return false
-        }
+        return false
+    }
     
     // Deleteボタン押下時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -377,9 +336,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 guard let item = self.list?[indexPath.row] else { return }
                 self.realm?.delete(item)
             }
-            // テーブルから該当データを削除
             guard let count = self.list?.count else { return }
-            
+            // リストが空になった場合の処理
             if count == 0 {
                 self.isNotExistCellLabel.isHidden = false
                 self.goOutButton.isEnabled = false
@@ -388,8 +346,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 self.navigationItem.leftBarButtonItems?[0].style = .plain
                 self.navigationItem.leftBarButtonItems?[0].isEnabled = false
             }
-            
+            // テーブルから該当データを削除
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            // 削除アニメーション用
             DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
                 self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(count) - CGFloat(0.8)
                 self.tableView.reloadData()
@@ -451,16 +410,14 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
     // キャンセルボタンが押されたときに呼ばれるメソッド
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // UIImagePickerControllerを閉じる
-        // 画像の削除
+        // アラートの設定
         let alert = UIAlertController(title: "チェックリスト画面に戻ります。\nよろしいですか？", message: "ここまで撮影したメディアは全て削除されます。", preferredStyle: .alert)
+        // 「はい」→pickerを閉じて、データを削除
         let yesAction = UIAlertAction(title: "はい", style: .default) { (UIAlertAction) in
-            print("「はい」が選択されました！")
             self.dismiss(animated: true, completion: nil)
             self.deleteMedia()
         }
         let noAction = UIAlertAction(title: "いいえ", style: .default) { (UIAlertAction) in
-            print("「いいえ」が選択されました！")
         }
         alert.addAction(noAction)
         alert.addAction(yesAction)
